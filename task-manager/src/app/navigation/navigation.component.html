@@ -1,0 +1,35 @@
+<div class="toolbar">
+<mat-toolbar color="primary">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+
+  <button
+    mat-icon-button
+    class="profile-icon"
+    aria-label="Example icon-button with share icon"
+    [matMenuTriggerFor]="profileMenu"
+  >
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #profileMenu="matMenu" class="purple">
+    <button mat-menu-item (click)="accsettings()">Setari</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
+    
+  </mat-menu>
+</mat-toolbar>
+</div>
+<mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav #drawer fixedInViewport autoFocus="false" 
+      [mode]="mobile ? 'over' : 'side'">
+    <app-profile></app-profile>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

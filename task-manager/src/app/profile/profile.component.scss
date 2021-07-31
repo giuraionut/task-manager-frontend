@@ -1,0 +1,53 @@
+.background {
+  background-color: rgb(184, 163, 204);
+  width: 100%;
+  height: 94vh;
+  color: white;
+}
+.avatar-container {
+  text-align: center;
+}
+.avatar {
+  margin-top: 30px;
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+.profile-info {
+  text-align: center;
+}
+.mat-progress-bar {
+  max-width: 350px !important;
+  height: 15px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.task-container {
+  max-width: 350px;
+  margin: auto;
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+.task {
+  max-width: 200px;
+  font-weight: bolder !important;
+}
+.mat-divider {
+  margin: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.profile-buttons {
+  background-color: plum;
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+::ng-deep .mat-drawer-inner-container {
+  overflow-y: hidden !important;
+  overflow: hidden !important;
+}
