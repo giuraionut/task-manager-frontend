@@ -1,0 +1,32 @@
+<div class="background">
+  <!-- <div class="task-menu" *ngIf="showMenu">
+    <mat-card class="task-menu-buttons">
+      <mat-icon (click)="showMenu = false">close</mat-icon>
+      <mat-icon (click)="teamTasks()">people</mat-icon>
+      <mat-icon (click)="personalTasks()">person</mat-icon>
+    </mat-card>
+   
+  </div> -->
+
+  <div class="container">
+    <div
+      fxLayout="row wrap"
+      fxLayout.lt-sm="column"
+      fxLayoutGap="25px grid"
+      fxLayoutAlign="center"
+    >
+      <div *ngFor="let task of tasks">
+        <div
+          fxFlex="calc(33.3% - 20px)"
+          fxFlex.lt-md="calc(50% - 20px)"
+          fxFlex.lt-sm="100%"
+        >
+          <app-taskitem
+            [task]="task"
+            (onDeleteTask)="deleteTaskFunc(task)"
+          ></app-taskitem>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

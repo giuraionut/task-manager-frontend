@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { APIResponse } from '../models/APIResponse.model';
-import { Task } from '../models/Task.model';
-import { User } from '../models/User.model';
-import { TaskService } from '../services/task.service';
-import { UserService } from '../services/user.service';
+import { APIResponse } from '../../models/APIResponse.model';
+import { Task } from '../../models/Task.model';
+import { User } from '../../models/User.model';
+import { TaskService } from '../../services/task.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
