@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../../models/User.model';
 @Component({
   selector: 'app-memberitem',
   templateUrl: './memberitem.component.html',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberitemComponent implements OnInit {
 
+  @Input() members: Array<User> = [];
+  @Input() management: Boolean = false;
   constructor() { }
 
   ngOnInit(): void {

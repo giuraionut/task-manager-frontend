@@ -31,6 +31,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './chat/chat.component';
 import { TaskitemComponent } from './items/taskitem/taskitem.component';
 import { MemberitemComponent } from './items/memberitem/memberitem.component';
+import { AddtaskitemComponent } from './items/addtaskitem/addtaskitem.component';
+import { TaskprogressbarComponent } from './items/taskprogressbar/taskprogressbar.component';
+import { TeammanagementComponent } from './teammanagement/teammanagement.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,10 @@ import { MemberitemComponent } from './items/memberitem/memberitem.component';
     UpdateuserinfoComponent,
     ChatComponent,
     TaskitemComponent,
-    MemberitemComponent
+    MemberitemComponent,
+    AddtaskitemComponent,
+    TaskprogressbarComponent,
+    TeammanagementComponent
   ],
   imports: [
     BrowserModule,

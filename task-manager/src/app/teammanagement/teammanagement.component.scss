@@ -1,0 +1,39 @@
+.content {
+  margin-top: 64px;
+}
+.background {
+  height: 94vh;
+  background-color: rgb(82, 9, 82);
+}
+.team-avatar {
+  width: 200px;
+  height: fit-content;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.team-info {
+  margin: 0 auto;
+  color: white;
+  width: 200px;
+  text-align: center;
+}
+
+.text {
+  margin-top: 20px;
+}
+
+.members {
+  margin-top: 20px;
+  max-width: 100%;
+}
+.left {
+  width: 100%;
+  min-width: 380px;
+  height: 94vh;
+  background-color: rgb(107, 47, 80);
+}
+.right {
+  width: 100%;
+
+}

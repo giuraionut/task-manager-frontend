@@ -1,0 +1,23 @@
+<app-navigation></app-navigation>
+<div class="background">
+  <div class="content">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
+      <div class="left" fxFlex="20">
+        <div class="team-info">
+          <img
+            class="team-avatar"
+            src="https://www.sammobile.com/wp-content/uploads/2019/03/keyguard_default_wallpaper_silver.png"
+          />
+          <div class="text"></div>
+          <h2>Team name</h2>
+          <h2>Team Leader</h2>
+        </div>
+      </div>
+      <div class="right" fxFlex="80">
+        <div class="members">
+          <app-memberitem [members]="users" [management]="true"></app-memberitem>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

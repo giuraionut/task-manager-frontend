@@ -7,5 +7,5 @@ export interface Task{
     authorId?: string;
     responsibleId?: string;
     assigned?: boolean;
-    personal?: boolean;
+    private?: boolean;
 }

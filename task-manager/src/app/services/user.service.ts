@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/User.model';
 import { APIResponse } from '../models/APIResponse.model';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -10,21 +11,19 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  public getUserInfo() {
-    return this.http.get(`${this.url}/profile`, {
+  public getUserInfo(): Observable<APIResponse> {
+    return this.http.get<APIResponse>(`${this.url}/profile`, {
       withCredentials: true,
     });
   }
 
   public signout() {
-    let response: APIResponse;
     this.http
-      .post(`${this.url}/signout`, null, { withCredentials: true })
+      .post<APIResponse>(`${this.url}/signout`, null, { withCredentials: true })
       .subscribe(
-        (result: any) => {
+        (response: APIResponse) => {
           localStorage.removeItem('loggedIn');
           this.router.navigate(['/taskmanager/home']);
-          response = result;
           console.log(response);
         },
         (error: any) => {
@@ -35,10 +34,9 @@ export class UserService {
   }
 
   public register(user: User) {
-    let response: APIResponse;
-    this.http.post(`${this.url}/new`, user).subscribe(
-      (result: any) => {
-        response = result;
+    this.http.post<APIResponse>(`${this.url}/new`, user).subscribe(
+      (response: APIResponse) => {
+        console.log('Registration successfully');
         console.log(response);
       },
       (error: any) => {

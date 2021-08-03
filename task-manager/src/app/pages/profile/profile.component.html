@@ -10,36 +10,23 @@
     <div class="profile-info">
       <h2>{{ user.firstName }} {{ user.lastName }}</h2>
       <h3>{{ user.email }}</h3>
-    
     </div>
 
     <mat-divider></mat-divider>
-
-    <mat-progress-bar
-      mode="determinate"
-      [value]="(numberOfDoneTasks / numberOfTotalTasks) * 100"
-      color="primary"
-    >
-    </mat-progress-bar>
-
-    <div class="task-container">
-      <div class="task">
-        <h4>Completed</h4>
-        <h4>{{ numberOfDoneTasks }}</h4>
-      </div>
-      <div class="task">
-        <h4>To do</h4>
-        <h4>{{ numberOfOpenTasks }}</h4>
-      </div>
-      <div class="task">
-        <h4>Total tasks</h4>
-        <h4>{{ numberOfTotalTasks }}</h4>
-      </div>
+    <div class="profile-info">
+    <h4>My public tasks</h4>
     </div>
+    
+    <app-taskprogressbar></app-taskprogressbar>
 
     <mat-divider></mat-divider>
     <mat-card class="profile-buttons"
-      ><button mat-raised-button color="primary">Echipa mea</button></mat-card
+      ><button mat-raised-button color="primary" (click)="teamManagement()">Echipa mea</button></mat-card
     >
+    <mat-card>
+      <div class="profile-info">
+      <p>{{user.teamId}}</p>
+      </div>
+    </mat-card>
   </div>
 </div>

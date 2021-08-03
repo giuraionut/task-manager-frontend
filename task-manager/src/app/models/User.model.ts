@@ -8,5 +8,6 @@ export interface User {
   birthDate?: string;
   teamId?: string;
   tasksId?: Array<string>;
+  avatar?: string;
 }
 

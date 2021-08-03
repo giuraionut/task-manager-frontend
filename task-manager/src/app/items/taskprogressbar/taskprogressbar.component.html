@@ -1,0 +1,21 @@
+<mat-progress-bar
+      mode="determinate"
+      [value]="(numberOfDoneTasks / (numberOfOpenTasks + numberOfDoneTasks)) * 100"
+      color="primary"
+    >
+    </mat-progress-bar>
+
+    <div class="task-container">
+      <div class="task">
+        <h4>Completed</h4>
+        <h4>{{ numberOfDoneTasks }}</h4>
+      </div>
+      <div class="task">
+        <h4>To do</h4>
+        <h4>{{ numberOfOpenTasks }}</h4>
+      </div>
+      <div class="task">
+        <h4>Total tasks</h4>
+        <h4>{{ numberOfDoneTasks + numberOfOpenTasks }}</h4>
+      </div>
+    </div>

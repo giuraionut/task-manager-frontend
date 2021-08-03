@@ -1,44 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Task } from '../models/Task.model';
 import { APIResponse } from '../models/APIResponse.model';
-import { tap } from 'rxjs/operators';
-
+import { take } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class TaskService {
+  
   private url = 'http://localhost:8080/task';
 
   constructor(private http: HttpClient) {}
 
-  public getTaskInfo(taskId: string) {
-    return this.http.get(`${this.url}/details/${taskId}`, {
+  public countPublicTasks(type: string, state: string): Observable<APIResponse> {
+    return this.http.get<APIResponse>(`${this.url}/quantity/${type}/${state}`, {
       withCredentials: true,
     });
   }
-
-  public getPrivateTasks(): Observable<APIResponse> {
-    return this.http.get<APIResponse>(`${this.url}/private`, {
-      withCredentials: true,
-    });
+  public getTasks(type: string): Observable<APIResponse> {
+    return this.http.get<APIResponse>(`${this.url}/${type}`, {
+      withCredentials: true
+    }).pipe(take(1));
   }
-
-  public changeTaskStatus(task: Task): Observable<APIResponse> {
-    return this.http.put<APIResponse>(
-      `${this.url}/status/private/${task.id}`,
-      null,
-      {
-        withCredentials: true,
-      }
-    );
+  public editTask(task: Task): Observable<APIResponse> {
+    return this.http.put<APIResponse>(`${this.url}/private`, task, {
+      withCredentials: true
+    }).pipe(take(1));
   }
 
   public deleteTask(task: Task): Observable<APIResponse> {
-    return this.http.delete<APIResponse>(
-      `${this.url}/delete/private/${task.id}`,
-      {
-        withCredentials: true,
-      }
-    );
+    return this.http.delete<APIResponse>(`${this.url}/private`, {
+      withCredentials: true,
+      body: task,
+    }).pipe(take(1));
+  }
+
+  public newTask(task: Task): Observable<APIResponse>
+  {
+    return this.http.post<APIResponse>(`${this.url}/private`, task, {withCredentials:true});
   }
 }

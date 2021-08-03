@@ -4,11 +4,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { MainpageComponent } from './pages/mainpage/mainpage.component'
 import { AccsettingsComponent } from './pages/accsettings/accsettings.component';
 import { ChatComponent } from './chat/chat.component';
+import { TeammanagementComponent } from './teammanagement/teammanagement.component';
 const routes: Routes = [
   { path: "taskmanager/home", component: HomeComponent },
   { path: "taskmanager/mainpage", component: MainpageComponent },
   { path: "taskmanager/settings", component: AccsettingsComponent },
-  { path: "taskmanager/chat" , component: ChatComponent}
+  { path: "taskmanager/chat" , component: ChatComponent},
+  { path: "taskmanager/teammanagement", component: TeammanagementComponent}
 ];
 
 @NgModule({

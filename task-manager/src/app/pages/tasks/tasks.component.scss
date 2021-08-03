@@ -1,16 +1,63 @@
 .background {
   width: 100%;
-  background-color: rgb(77, 18, 63);
+  background-color: #4d123f;
   height: 94vh;
   overflow-y: auto;
-  margin: 0 auto;
   overflow-x: hidden;
+}
+.addtask-btn {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+.bottom-menu {
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display:flex;
+  flex-direction: column;
+}
+.mat-fab{
+  margin:5px;
+}
+.mat-fab:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
 }
 
 .container {
-  padding-top: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
-  max-width: 1200px;
+  margin-top: 25px;
+}
+
+.task-menu {
+  padding-top: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  max-width: 280px;
   margin: 0 auto;
+}
+
+.task-menu-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.task-menu-info {
+  display: flex;
+  justify-content: space-around;
+  max-width: fit-content;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.mat-card {
+  background-color: rgb(174, 143, 188);
+}
+.mat-icon {
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.mat-icon:hover {
+  transform: scale(1.5);
+  transition: transform 0.1s ease;
 }
