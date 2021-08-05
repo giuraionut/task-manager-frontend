@@ -16,22 +16,10 @@ export class TeamComponent implements OnInit {
   public user: User = {};
   public users: Array<User> = [];
   ngOnInit(): void {
-    this.teamService.getTeam().subscribe(
-      (response: APIResponse) => {
-        this.team = response.payload;
-        console.log('Team details obtained successfully');
-        console.log(this.team);
-      },
-      (error: HttpErrorResponse) => {
-        console.log('Failed to obtain team details', error);
-      }
-    );
-
     this.teamService.getTeamMembers().subscribe(
-      (response: APIResponse) => {
-        this.users = response.payload;
+      (response) => {
+        this.users = response;
         console.log('Team users obtained successfully');
-        console.log(this.users);
       },
       (error: HttpErrorResponse) => {
         console.log('Failed to obtain team members', error);

@@ -18,13 +18,13 @@ export class TaskprogressbarComponent implements OnInit {
   public countPublicTasks() {
     this.taskService
       .countPublicTasks('public', 'open')
-      .subscribe((response: APIResponse) => {
-        this.numberOfOpenTasks = response.payload;
+      .subscribe((response) => {
+        this.numberOfOpenTasks = response;
       });
     this.taskService
       .countPublicTasks('public', 'closed')
-      .subscribe((response: APIResponse) => {
-        this.numberOfDoneTasks = response.payload;
+      .subscribe((response) => {
+        this.numberOfDoneTasks = response;
       });
   }
 }

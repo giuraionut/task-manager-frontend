@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/User.model';
 import { APIResponse } from '../models/APIResponse.model';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,21 +11,15 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  public login(user: User) {
-    let response: APIResponse;
+  public login(user: User): void {
     this.http
-      .post(`${this.url}/login`, user, { withCredentials: true })
-      .subscribe(
-        (result: any) => {
+      .post<APIResponse>(`${this.url}/login`, user, { withCredentials: true })
+      .pipe(
+        map((response: APIResponse) => {
           localStorage.setItem('loggedIn', 'true');
           this.router.navigate(['/taskmanager/mainpage']);
-          response = result;
-          console.log(response);
-        },
-        (error: any) => {
-          console.log('Login failed');
-          console.log(error);
-        }
-      );
+        })
+      )
+      .subscribe();
   }
 }

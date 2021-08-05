@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { APIResponse } from '../models/APIResponse.model';
+import { Team } from '../models/Team.model';
 import { User } from '../models/User.model';
 import { TeamService } from '../services/team.service';
 
@@ -13,16 +14,14 @@ export class TeammanagementComponent implements OnInit {
   constructor(private teamService: TeamService) {}
 
   public users: Array<User> = [];
+  public team: Team = {};
   ngOnInit(): void {
-    this.teamService.getTeamMembers().subscribe(
-      (response: APIResponse) => {
-        this.users = response.payload;
-        console.log('Team users obtained successfully');
-        console.log(this.users);
-      },
-      (error: HttpErrorResponse) => {
-        console.log('Failed to obtain team members', error);
-      }
-    );
+    this.teamService.getTeam().subscribe((response) => {
+      this.team = response;
+    });
+
+    this.teamService.getTeamMembers().subscribe((response) => {
+      this.users = response;
+    });
   }
 }

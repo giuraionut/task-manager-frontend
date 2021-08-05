@@ -7,7 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from './services/auth.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainpageComponent } from './pages/mainpage/mainpage.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,6 +34,7 @@ import { MemberitemComponent } from './items/memberitem/memberitem.component';
 import { AddtaskitemComponent } from './items/addtaskitem/addtaskitem.component';
 import { TaskprogressbarComponent } from './items/taskprogressbar/taskprogressbar.component';
 import { TeammanagementComponent } from './teammanagement/teammanagement.component';
+import { Interceptor } from './services/interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,7 @@ import { TeammanagementComponent } from './teammanagement/teammanagement.compone
     MemberitemComponent,
     AddtaskitemComponent,
     TaskprogressbarComponent,
-    TeammanagementComponent
+    TeammanagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,9 +73,12 @@ import { TeammanagementComponent } from './teammanagement/teammanagement.compone
     AppRoutingModule,
     MatOptionModule,
     MatSelectModule,
-
   ],
-  providers: [AuthService, HttpClient],
+  providers: [
+    AuthService,
+    HttpClient,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
