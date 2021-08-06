@@ -1,6 +1,6 @@
-export interface Team{
-    id?: string;
-    name?: string;
-    authorId?: string;
-    membersId?: Array<string>;
+export interface Team {
+  id?: string;
+  name?: string;
+  authorId?: string;
+  membersId?: Array<string>;
 }

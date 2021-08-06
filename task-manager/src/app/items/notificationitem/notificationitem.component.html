@@ -1,0 +1,20 @@
+<div class="background">
+  <div class="content" *ngIf="notifications.length === 0 || noNotif">
+    No notifications
+  </div>
+  <div class="notifs" *ngFor="let notification of notifications">
+    <div class="notif" *ngIf="!notification.stateRead">
+      <div class="content">Invitatie de la</div>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class="controls">
+    <div
+      *ngIf="notifications.length !== 0 && !noNotif"
+      class="button"
+      (click)="dismissNotif()"
+    >
+      Dismiss
+    </div>
+  </div>
+</div>

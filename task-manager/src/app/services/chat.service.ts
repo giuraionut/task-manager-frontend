@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Message } from '../models/Message.model';
+import { ChatMessage } from '../models/ChatMessage.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class WebsocketService {
+export class ChatService {
   webSocket!: WebSocket;
-  message: Message[] = [];
+  message: ChatMessage[] = [];
 
   constructor() {}
 
-  public openWebSocket() {
+  public openChatConnection() {
     this.webSocket = new WebSocket('ws://localhost:8080/chat');
 
     this.webSocket.onopen = (event) => {
@@ -28,14 +28,11 @@ export class WebsocketService {
     };
   }
 
-  public sendMessage(message: Message)
-  {
+  public sendMessage(message: ChatMessage) {
     this.webSocket.send(JSON.stringify(message));
-
   }
 
-  public closeWebSocket()
-  {
+  public closeChatConnection() {
     this.webSocket.close();
   }
 }

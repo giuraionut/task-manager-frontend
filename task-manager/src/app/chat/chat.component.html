@@ -1,7 +1,7 @@
 <div class="background">
   <div class="chat">
     <form class="example-form">
-        <div *ngFor="let chatMessage of webSocketService.message">
+        <div *ngFor="let chatMessage of chatService.message">
             <p>{{chatMessage.user}}: {{chatMessage.message}}</p>
         </div>
 

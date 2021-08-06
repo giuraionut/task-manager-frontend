@@ -14,18 +14,20 @@
 
     <mat-divider></mat-divider>
     <div class="profile-info">
-    <h4>My public tasks</h4>
+      <h4>My public tasks</h4>
     </div>
-    
+
     <app-taskprogressbar></app-taskprogressbar>
 
     <mat-divider></mat-divider>
     <mat-card class="profile-buttons"
-      ><button mat-raised-button color="primary" (click)="teamManagement()">Echipa mea</button></mat-card
+      ><button mat-raised-button color="primary" (click)="teamManagement()">
+        Echipa mea
+      </button></mat-card
     >
     <mat-card>
       <div class="profile-info">
-      <p>{{user.teamId}}</p>
+        <p>{{ user.teamId }}</p>
       </div>
     </mat-card>
   </div>

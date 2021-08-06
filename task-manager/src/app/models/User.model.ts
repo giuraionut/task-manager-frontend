@@ -1,4 +1,5 @@
 export interface User {
+  id?: string;
   username?: string;
   password?: string;
   firstName?: string;
@@ -10,4 +11,3 @@ export interface User {
   tasksId?: Array<string>;
   avatar?: string;
 }
-

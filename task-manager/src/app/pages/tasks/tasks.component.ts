@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/Task.model';
-import { APIResponse } from '../../models/APIResponse.model';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-tasks',

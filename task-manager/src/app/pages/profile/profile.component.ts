@@ -22,8 +22,8 @@ export class ProfileComponent implements OnInit {
   //------------------------------------------------------------------------------------------------
   public getUserInfo() {
     this.userService.getUserInfo().subscribe(
-      (response: APIResponse) => {
-        this.user = response.payload;
+      (response) => {
+        this.user = response;
       },
       (error: HttpErrorResponse) => {
         console.log('Could not fetch user from backend');
@@ -32,8 +32,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  public teamManagement()
-  {
-    this.router.navigate(["/taskmanager/teammanagement"]);
+  public teamManagement() {
+    this.router.navigate(['/taskmanager/teammanagement']);
   }
 }

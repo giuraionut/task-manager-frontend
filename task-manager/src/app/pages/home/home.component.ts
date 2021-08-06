@@ -10,17 +10,18 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private user: UserService, private auth:AuthService, private router: Router) {}
+  constructor(
+    private user: UserService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    let loggedIn = localStorage.getItem('loggedIn');
 
-    let loggedIn = localStorage.getItem("loggedIn");
-
-    if(loggedIn)
-    {
-      if(JSON.parse(loggedIn))
-      {
-        this.router.navigate(["/taskmanager/mainpage"]);
+    if (loggedIn) {
+      if (JSON.parse(loggedIn)) {
+        this.router.navigate(['/taskmanager/mainpage']);
       }
     }
   }

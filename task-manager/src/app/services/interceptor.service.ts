@@ -27,7 +27,7 @@ export class Interceptor implements HttpInterceptor {
         }
         return event;
       }),
-      catchError(() => ([]))
+      catchError(() => [])
     );
   }
 }

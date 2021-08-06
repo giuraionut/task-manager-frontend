@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Message } from '../models/Message.model';
-import { WebsocketService } from '../services/websocket.service';
+import { ChatMessage } from '../models/ChatMessage.model';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -8,24 +8,20 @@ import { WebsocketService } from '../services/websocket.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  constructor(public webSocketService: WebsocketService) {}
+  constructor(public chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.webSocketService.openWebSocket();
+    this.chatService.openChatConnection();
   }
 
   ngOnDestroy(): void {
-    this.webSocketService.closeWebSocket();
+    this.chatService.closeChatConnection();
   }
 
   public sendMessage(name: string, content: string) {
-    let message: Message = {};
+    let message: ChatMessage = {};
     message.user = name;
     message.message = content;
-    this.webSocketService.sendMessage(message);
+    this.chatService.sendMessage(message);
   }
-
-
-
-
 }

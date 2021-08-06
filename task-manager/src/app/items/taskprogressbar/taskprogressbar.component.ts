@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { APIResponse } from '../../models/APIResponse.model';
 import { TaskService } from '../../services/task.service';
 
 @Component({

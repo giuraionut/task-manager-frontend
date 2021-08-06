@@ -58,3 +58,27 @@
   cursor: pointer;
   margin: 0px 10px 0px 10px;
 }
+
+.notif-active {
+  color: rgb(250, 168, 200);
+
+  animation: Rotate 0.4s ease-in-out infinite;
+}
+
+.notif {
+  color: rgb(250, 168, 200);
+}
+
+@keyframes Rotate {
+  0% {
+    transform: rotateZ(30deg) scale(1.2);
+  }
+
+  50% {
+    transform: rotateZ(-30deg) scale(1);
+  }
+
+  100% {
+    transform: rotateZ(30deg) scale(1.2);
+  }
+}

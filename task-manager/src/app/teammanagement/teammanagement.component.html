@@ -9,13 +9,23 @@
             src="https://www.sammobile.com/wp-content/uploads/2019/03/keyguard_default_wallpaper_silver.png"
           />
           <div class="text"></div>
-          <h2>{{team.name}}</h2>
-          <h2>{{team.authorId}}</h2>
+          <h2>{{ team.name }}</h2>
+          <h2>{{ team.authorId }}</h2>
+          <input
+            #id
+            matInput
+            placeholder="User's ID"
+            value="61090f48723222719875f599"
+          />
+          <button (click)="sendInvitation(id.value)">Send invite</button>
         </div>
       </div>
       <div class="right" fxFlex="80">
         <div class="members">
-          <app-memberitem [members]="users" [management]="true"></app-memberitem>
+          <app-memberitem
+            [members]="users"
+            [management]="true"
+          ></app-memberitem>
         </div>
       </div>
     </div>

@@ -1,35 +1,60 @@
 <div class="toolbar">
-<mat-toolbar color="primary">
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    mat-icon-button
-    (click)="drawer.toggle()">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-
-  <button
-    mat-icon-button
-    class="profile-icon"
-    aria-label="Example icon-button with share icon"
-    [matMenuTriggerFor]="profileMenu"
-  >
-    <mat-icon>person</mat-icon>
-  </button>
-  <mat-menu #profileMenu="matMenu" class="purple">
-    <button mat-menu-item (click)="accsettings()">Setari</button>
-    <button mat-menu-item (click)="logout()">Logout</button>
-    
-  </mat-menu>
-</mat-toolbar>
+  <mat-toolbar color="primary">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+    >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <button
+      mat-icon-button
+      class="notification-icon"
+      [matMenuTriggerFor]="notifications"
+    >
+      <mat-icon
+        *ngIf="
+          notificationService.notification.length === 0 || dismissed === true
+        "
+        >notifications</mat-icon
+      >
+      <mat-icon
+        *ngIf="notificationService.notification.length !== 0 && !dismissed"
+        [ngClass]="activeBell ? 'notif-active' : 'notif'"
+        (click)="activeBell = false"
+        >notifications_active</mat-icon
+      >
+    </button>
+    <mat-menu #notifications class="purple">
+      <app-notificationitem
+        (dismissedEvent)="dismissed = true"
+        [notifications]="notificationService.notification"
+      ></app-notificationitem>
+    </mat-menu>
+    <button
+      mat-icon-button
+      class="profile-icon"
+      [matMenuTriggerFor]="profileMenu"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #profileMenu class="purple">
+      <button mat-menu-item (click)="accsettings()">Setari</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>
 </div>
 <mat-sidenav-container hasBackdrop="false">
-  <mat-sidenav #drawer fixedInViewport autoFocus="false" 
-      [mode]="mobile ? 'over' : 'side'">
+  <mat-sidenav
+    #drawer
+    fixedInViewport
+    autoFocus="false"
+    [mode]="mobile ? 'over' : 'side'"
+  >
     <app-profile></app-profile>
   </mat-sidenav>
-  <mat-sidenav-content>
-  </mat-sidenav-content>
+  <mat-sidenav-content> </mat-sidenav-content>
 </mat-sidenav-container>

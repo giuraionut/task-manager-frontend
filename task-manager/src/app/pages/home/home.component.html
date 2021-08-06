@@ -1,5 +1,4 @@
 <div class="background">
-  
   <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Username</mat-label>
@@ -11,55 +10,57 @@
       <input #password matInput placeholder="Very strnog password" />
     </mat-form-field>
     <div *ngIf="reg">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input #email matInput placeholder="john@gmail.com" />
-    </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input #email matInput placeholder="john@gmail.com" />
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>First name</mat-label>
-      <input #firstname matInput placeholder="john@gmail.com" />
-    </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>First name</mat-label>
+        <input #firstname matInput placeholder="john@gmail.com" />
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Last name</mat-label>
-      <input #lastname matInput placeholder="john@gmail.com" />
-    </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input #lastname matInput placeholder="john@gmail.com" />
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Gender</mat-label>
-      <input #gender matInput placeholder="john@gmail.com" />
-    </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Gender</mat-label>
+        <input #gender matInput placeholder="john@gmail.com" />
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Birth date</mat-label>
-      <input #birthDate matInput placeholder="john@gmail.com" />
-    </mat-form-field>
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="
-        register(
-          username.value,
-          password.value,
-          email.value,
-          firstname.value,
-          lastname.value,
-          gender.value,
-          birthDate.value)">
-      Register
-    </button>
-  </div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Birth date</mat-label>
+        <input #birthDate matInput placeholder="john@gmail.com" />
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="
+          register(
+            username.value,
+            password.value,
+            email.value,
+            firstname.value,
+            lastname.value,
+            gender.value,
+            birthDate.value
+          )
+        "
+      >
+        Register
+      </button>
+    </div>
   </form>
   <button
-  mat-stroked-button
-  color="primary" *ngIf="!reg"
-  (click)="
-    login( 
-      username.value,
-      password.value)">
-  Login
-</button>
-  <button *ngIf="reg" (click)="reg=false">Already Registered</button>
-  <button *ngIf="!reg" (click)="reg=true">Don't have an account yet</button>
+    mat-stroked-button
+    color="primary"
+    *ngIf="!reg"
+    (click)="login(username.value, password.value)"
+  >
+    Login
+  </button>
+  <button *ngIf="reg" (click)="reg = false">Already Registered</button>
+  <button *ngIf="!reg" (click)="reg = true">Don't have an account yet</button>
 </div>

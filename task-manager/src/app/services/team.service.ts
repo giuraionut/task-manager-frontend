@@ -47,4 +47,12 @@ export class TeamService {
         })
       );
   }
+
+  public kickTeamMember(userId: string): Observable<void> {
+    return this.http
+      .put<APIResponse>(`${this.url}/kick/${userId}`, null, {
+        withCredentials: true,
+      })
+      .pipe(map((response: APIResponse) => {}));
+  }
 }

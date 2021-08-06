@@ -14,8 +14,7 @@ export class TaskitemComponent implements OnInit {
   @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter<Task>();
   taskStatus: Subscription = new Subscription();
   taskEdit: Subscription = new Subscription();
-  constructor(private taskService: TaskService,
-    private userService: UserService) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {}
   public onChangeStatus(task: Task) {
@@ -26,21 +25,21 @@ export class TaskitemComponent implements OnInit {
         console.log(response);
       });
   }
-  
+
   public editTaskDetails(task: Task, newDetails: string) {
     task.details = newDetails.trim();
     this.taskEdit = this.taskService
-    .editTask(task)
-    .subscribe((response: APIResponse) => {
-      console.log(response);
-    });
+      .editTask(task)
+      .subscribe((response: APIResponse) => {
+        console.log(response);
+      });
   }
 
   public onDelete(task: Task) {
     this.onDeleteTask.emit(task);
   }
 
-  public toggleInput:boolean = false;
+  public toggleInput: boolean = false;
 
   ngOnDestroy(): void {
     this.taskStatus.unsubscribe();
