@@ -1,20 +1,25 @@
 <div class="background">
-  <div class="content" *ngIf="notifications.length === 0 || noNotif">
-    No notifications
+  <div class="no-notif" *ngIf="notifications.length === 0 || noNotif">
+    <div class="content">No notifications</div>
   </div>
-  <div class="notifs" *ngFor="let notification of notifications">
+  <div *ngFor="let notification of notifications">
     <div class="notif" *ngIf="!notification.stateRead">
-      <div class="content">Invitatie de la</div>
-      <mat-divider></mat-divider>
+      <img
+        class="avatar"
+        src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+      />
+      <div class="notif-text">
+        <div class="content">{{ notification.content }}</div>
+        <div class="content">De catre {{ notification.sender }}</div>
+        <div class="content">{{ notification.timestamp | date: "short" }}</div>
+      </div>
+      <div class="notif-control">
+        <mat-icon>check</mat-icon>
+      </div>
     </div>
+    <mat-divider></mat-divider>
   </div>
-  <div class="controls">
-    <div
-      *ngIf="notifications.length !== 0 && !noNotif"
-      class="button"
-      (click)="dismissNotif()"
-    >
-      Dismiss
-    </div>
+  <div *ngIf="notifications.length !== 0 && !noNotif">
+    <div class="button" (click)="dismissNotif()">Dismiss all</div>
   </div>
 </div>

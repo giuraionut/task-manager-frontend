@@ -12,7 +12,7 @@ export class NotificationitemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
+  
   public noNotif: Boolean = false;
   public dismissNotif() {
     this.notifications.filter(

@@ -28,7 +28,7 @@
         >notifications_active</mat-icon
       >
     </button>
-    <mat-menu #notifications class="purple">
+    <mat-menu #notifications class="purple notifications-dropdown">
       <app-notificationitem
         (dismissedEvent)="dismissed = true"
         [notifications]="notificationService.notification"

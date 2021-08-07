@@ -1,17 +1,52 @@
-.background {
-  min-width: 250px;
-}
 .content {
   color: white;
+}
+//-----------------------------
+
+.notif {
+  display: flex;
+  color: white;
+  margin: 0 15px 0 15px;
+  width: calc(100% - 30px);
+}
+.notif-text {
+  width: 8%;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 100%;
+}
+.no-notif {
   margin: 15px;
+}
+//-----------------------------
+.button {
+  color: white;
+  margin: 15px 15px 5px 15px;
+}
+.notif-control {
+  margin-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+//-----------------------------
+
+.avatar {
+  width: 10%;
+  height: 10%;
+  border-radius: 50%;
+  margin-top: 5px;
 }
 
 .mat-divider {
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
 }
 
-.controls {
-  color: white;
-  margin: 15px 15px 5px 15px;
+.mat-icon,
+.button {
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
 }

@@ -6,6 +6,10 @@
   background-color: purple;
 }
 
+::ng-deep .notifications-dropdown {
+  width: 350px !important;
+  max-width: 350px !important;
+}
 .mat-sidenav {
   width: 360px;
   margin-left: 10px;
