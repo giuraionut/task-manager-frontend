@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatMessage } from '../models/ChatMessage.model';
-import { ChatService } from '../services/chat.service';
+import { ChatService } from '../services/chatWebSocket.service';
 
 @Component({
   selector: 'app-chat',

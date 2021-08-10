@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { NotificationService } from '../services/notification.service';
+import { NotificationSocketService } from '../services/notificationWebSocket.service';
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -11,13 +12,14 @@ export class NavigationComponent implements OnInit {
   constructor(
     private user: UserService,
     private router: Router,
-    public notificationService: NotificationService
+    public notificationSocketService: NotificationSocketService
   ) {}
 
   public activeBell: Boolean = true;
   public dismissed: Boolean = false;
+
   ngOnInit(): void {
-    this.notificationService.openNotificationChannel();
+    this.notificationSocketService.openNotificationChannel();
   }
 
   public logout() {
@@ -31,6 +33,6 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.notificationService.closeNotificationChannel();
+    this.notificationSocketService.closeNotificationChannel();
   }
 }

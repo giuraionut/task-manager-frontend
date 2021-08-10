@@ -1,8 +1,8 @@
 export interface Notification {
+  id?: string;
   type?: string;
   sender?: string;
   content?: string;
-  receiver?: string;
+  receiverId?: string;
   timestamp?: Date;
-  stateRead?: Boolean;
 }

@@ -3,7 +3,7 @@
     <div class="content">No notifications</div>
   </div>
   <div *ngFor="let notification of notifications">
-    <div class="notif" *ngIf="!notification.stateRead">
+    <div class="notif">
       <img
         class="avatar"
         src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
@@ -14,12 +14,12 @@
         <div class="content">{{ notification.timestamp | date: "short" }}</div>
       </div>
       <div class="notif-control">
-        <mat-icon>check</mat-icon>
+        <mat-icon (click)="dismissNotif(notification)">check</mat-icon>
       </div>
     </div>
     <mat-divider></mat-divider>
   </div>
   <div *ngIf="notifications.length !== 0 && !noNotif">
-    <div class="button" (click)="dismissNotif()">Dismiss all</div>
+    <div class="button" (click)="dismissAllNotif()">Dismiss all</div>
   </div>
 </div>

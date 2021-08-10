@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../models/Team.model';
 import { User } from '../models/User.model';
 import { TeamService } from '../services/team.service';
-import { NotificationService } from '../services/notification.service';
+import { NotificationSocketService } from '../services/notificationWebSocket.service';
 import { Notification } from '../models/Notification.model';
 import { UserService } from '../services/user.service';
 
@@ -15,7 +15,7 @@ export class TeammanagementComponent implements OnInit {
   constructor(
     private teamService: TeamService,
     private userService: UserService,
-    public notificationService: NotificationService
+    public notificationSocketService: NotificationSocketService
   ) {}
 
   public users: Array<User> = [];
@@ -29,19 +29,21 @@ export class TeammanagementComponent implements OnInit {
     this.teamService.getTeamMembers().subscribe((response) => {
       this.users = response;
     });
-    this.userService.getUserInfo().subscribe(response => {
+    this.userService.getUserInfo().subscribe((response) => {
       this.leader = response;
-    })
+    });
   }
 
   public sendInvitation(receiver: string) {
     let notification: Notification = {};
     notification.content = 'Esti invitat in ' + `"${this.team.name}"`;
-    notification.timestamp = new Date();
-    notification.receiver = receiver;
-    notification.stateRead = false;
+    const timestamp = new Date();
+    timestamp.setHours(timestamp.getHours() + 3);
+    notification.timestamp = timestamp;
+    notification.receiverId = receiver;
     notification.sender = this.leader.username;
-    this.notificationService.sendNotification(notification);
+    this.notificationSocketService.sendNotification(notification);
+    console.log(notification.timestamp);
   }
 
   public viewUsers() {
