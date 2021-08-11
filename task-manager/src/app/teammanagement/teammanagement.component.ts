@@ -41,7 +41,8 @@ export class TeammanagementComponent implements OnInit {
     timestamp.setHours(timestamp.getHours() + 3);
     notification.timestamp = timestamp;
     notification.receiverId = receiver;
-    notification.sender = this.leader.username;
+    notification.senderId = this.leader.id;
+    notification.teamId = this.leader.teamId;
     this.notificationSocketService.sendNotification(notification);
     console.log(notification.timestamp);
   }

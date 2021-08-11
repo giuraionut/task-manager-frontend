@@ -17,12 +17,14 @@
     >
       <mat-icon
         *ngIf="
-        notificationSocketService.notifications.length === 0 || dismissed === true
+          notificationSocketService.notifications.length === 0 || dismissed
         "
         >notifications</mat-icon
       >
       <mat-icon
-        *ngIf="notificationSocketService.notifications.length !== 0 && !dismissed"
+        *ngIf="
+          notificationSocketService.notifications.length !== 0 && !dismissed
+        "
         [ngClass]="activeBell ? 'notif-active' : 'notif'"
         (click)="activeBell = false"
         >notifications_active</mat-icon

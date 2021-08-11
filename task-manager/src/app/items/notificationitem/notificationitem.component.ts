@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Notification } from '../../models/Notification.model';
 import { NotificationSocketService } from '../../services/notificationWebSocket.service';
+import { TeamService } from '../../services/team.service';
 @Component({
   selector: 'app-notificationitem',
   templateUrl: './notificationitem.component.html',
@@ -10,11 +11,12 @@ import { NotificationSocketService } from '../../services/notificationWebSocket.
 export class NotificationitemComponent implements OnInit {
   @Input() notifications: Array<Notification> = [];
   @Output() dismissedEvent: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private notificationSocketService: NotificationSocketService) {}
+  constructor(
+    private notificationSocketService: NotificationSocketService,
+    private teamService: TeamService
+  ) {}
 
   ngOnInit(): void {}
-
-  public noNotif: Boolean = false;
 
   public dismissNotif(notification: Notification) {
     console.log(notification);
@@ -25,8 +27,7 @@ export class NotificationitemComponent implements OnInit {
           (notif) => notif != notification
         );
         if (this.notifications.length == 0) {
-          this.noNotif = true;
-          this.dismissedEvent.emit();
+          this.dismissedEvent.emit(true);
         }
       });
   }
@@ -35,7 +36,13 @@ export class NotificationitemComponent implements OnInit {
     this.notifications.forEach((notification) => {
       this.dismissNotif(notification);
     });
-    this.noNotif = true;
-    this.dismissedEvent.emit();
+
+    this.dismissedEvent.emit(true);
+  }
+
+  public action(notification: Notification) {
+    let teamId: string = notification.teamId!;
+    this.teamService.acceptInvite(teamId).subscribe();
+    this.dismissNotif(notification);
   }
 }

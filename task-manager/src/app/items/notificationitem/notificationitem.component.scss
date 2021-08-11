@@ -26,7 +26,7 @@
 .notif-control {
   margin-right: 15px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 10%;
 }
@@ -42,6 +42,16 @@
 .mat-divider {
   width: 70%;
   margin: 0 auto;
+}
+
+.mat-icon:hover {
+  transform: scale(1.5);
+  transition: all 0.1s ease-in-out;
+}
+
+.mat-icon {
+  margin-right: 5px;
+  transition: all 0.1s ease-in-out;
 }
 
 .mat-icon,

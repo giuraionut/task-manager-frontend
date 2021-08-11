@@ -55,4 +55,12 @@ export class TeamService {
       })
       .pipe(map((response: APIResponse) => {}));
   }
+
+  public acceptInvite(teamId: String) {
+    return this.http
+      .put<APIResponse>(`${this.url}/add/${teamId}`, null, {
+        withCredentials: true,
+      })
+      .pipe(map((response: APIResponse) => {}));
+  }
 }

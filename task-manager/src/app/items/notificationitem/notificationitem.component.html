@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="no-notif" *ngIf="notifications.length === 0 || noNotif">
+  <div class="no-notif" *ngIf="notifications.length === 0">
     <div class="content">No notifications</div>
   </div>
   <div *ngFor="let notification of notifications">
@@ -10,16 +10,17 @@
       />
       <div class="notif-text">
         <div class="content">{{ notification.content }}</div>
-        <div class="content">De catre {{ notification.sender }}</div>
+        <div class="content">De catre {{ notification.senderId }}</div>
         <div class="content">{{ notification.timestamp | date: "short" }}</div>
       </div>
       <div class="notif-control">
-        <mat-icon (click)="dismissNotif(notification)">check</mat-icon>
+        <mat-icon (click)="dismissNotif(notification)">delete</mat-icon>
+        <mat-icon (click)="action(notification)">check</mat-icon>
       </div>
     </div>
     <mat-divider></mat-divider>
   </div>
-  <div *ngIf="notifications.length !== 0 && !noNotif">
+  <div *ngIf="notifications.length !== 0">
     <div class="button" (click)="dismissAllNotif()">Dismiss all</div>
   </div>
 </div>

@@ -1,8 +1,10 @@
 export interface Notification {
   id?: string;
   type?: string;
-  sender?: string;
+  senderId?: string;
   content?: string;
   receiverId?: string;
   timestamp?: Date;
+
+  teamId?: string;
 }
