@@ -44,10 +44,10 @@ export class TeammanagementComponent implements OnInit {
     notification.senderId = this.leader.id;
     notification.teamId = this.leader.teamId;
     this.notificationSocketService.sendNotification(notification);
-    console.log(notification.timestamp);
   }
-
-  public viewUsers() {
-    console.log('ok');
+  
+  public deleteTeam()
+  {
+    this.teamService.deleteTeam().subscribe();
   }
 }

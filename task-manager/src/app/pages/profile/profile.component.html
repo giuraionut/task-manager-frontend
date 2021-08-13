@@ -20,12 +20,13 @@
     <app-taskprogressbar></app-taskprogressbar>
 
     <mat-divider></mat-divider>
-    <mat-card class="profile-buttons"
-      ><button mat-raised-button color="primary" (click)="teamManagement()">
+    <mat-card class="profile-buttons">
+      <button *ngIf="hasTeam" mat-raised-button color="primary" (click)="teamManagement()">
         Echipa mea
-      </button></mat-card
-    >
-    <mat-card>
+      </button>
+      <button *ngIf="!hasTeam" mat-raised-button color="primary" (click)="createTeam()">
+        Creaza o echipa
+      </button>
       <div class="profile-info">
         <p>{{ user.teamId }}</p>
       </div>

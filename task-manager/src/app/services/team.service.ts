@@ -39,7 +39,7 @@ export class TeamService {
 
   public getTeamMembers(): Observable<Array<User>> {
     return this.http
-      .get<APIResponse>(`${this.url}/teamMembers`, { withCredentials: true })
+      .get<APIResponse>(`${this.url}/members`, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {
           let members: Array<User> = response.payload;

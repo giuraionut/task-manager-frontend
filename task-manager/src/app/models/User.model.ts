@@ -10,4 +10,5 @@ export interface User {
   teamId?: string;
   tasksId?: Array<string>;
   avatar?: string;
+  refreshToken?: string;
 }

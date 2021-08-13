@@ -1,4 +1,7 @@
 <div fxLayout="row wrap" fxLayoutGap="10px grid">
+  <div *ngIf="members && members.length<2">
+    <mat-card>Echipa ta nu are nici un membru</mat-card>
+  </div>
   <div *ngFor="let member of members" class="container">
     <mat-card class="example-card">
       <mat-card-header>

@@ -42,7 +42,18 @@ export class NotificationitemComponent implements OnInit {
 
   public action(notification: Notification) {
     let teamId: string = notification.teamId!;
-    this.teamService.acceptInvite(teamId).subscribe();
+    this.teamService.acceptInvite(teamId).subscribe(() => {
+      let confirmation: Notification = {};
+      confirmation.content = 'User accepted your invite';
+      confirmation.receiverId = notification.senderId;
+      confirmation.senderId = notification.receiverId;
+      confirmation.type = 'Confirmation';
+      const timestamp = new Date();
+      timestamp.setHours(timestamp.getHours() + 3);
+      notification.timestamp = timestamp;
+
+      this.notificationSocketService.sendNotification(confirmation);
+    });
     this.dismissNotif(notification);
   }
 }
