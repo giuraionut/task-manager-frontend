@@ -39,6 +39,8 @@ import { TaskprogressbarComponent } from './items/taskprogressbar/taskprogressba
 import { TeammanagementComponent } from './teammanagement/teammanagement.component';
 import { Interceptor } from './services/interceptor.service';
 import { NotificationitemComponent } from './items/notificationitem/notificationitem.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './items/dialog/dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,7 @@ import { NotificationitemComponent } from './items/notificationitem/notification
     TaskprogressbarComponent,
     TeammanagementComponent,
     NotificationitemComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { NotificationitemComponent } from './items/notificationitem/notification
     AppRoutingModule,
     MatOptionModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [
     AuthService,

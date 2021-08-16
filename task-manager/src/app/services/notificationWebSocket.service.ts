@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { APIResponse } from '../models/APIResponse.model';
 import { Notification } from '../models/Notification.model';
+import { RefreshToken } from '../models/RefreshToken.model';
 import { User } from '../models/User.model';
+import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -16,9 +18,16 @@ export class NotificationSocketService {
   received: Boolean[] = [];
   private url = 'http://localhost:8080/notification/api';
 
-  constructor(private userService: UserService, private http: HttpClient) {}
+  constructor(
+    private userService: UserService,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  public addNotification(notification: Notification): Observable<Notification> {
+  //api------------------------------------------------------------------------------
+  public saveNotification(
+    notification: Notification
+  ): Observable<Notification> {
     return this.http
       .post<APIResponse>(`${this.url}`, notification, { withCredentials: true })
       .pipe(
@@ -55,7 +64,7 @@ export class NotificationSocketService {
         })
       );
   }
-
+  //api------------------------------------------------------------------------------
   public openNotificationChannel() {
     this.webSocket = new WebSocket('ws://localhost:8080/notification');
 
@@ -66,22 +75,30 @@ export class NotificationSocketService {
     this.webSocket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       let notification: Notification = message;
-      this.userService.getUserInfo().subscribe((result: User) => {
-        if (notification.receiverId === result.id) {
-          this.addNotification(notification).subscribe((result) =>
+      this.userService.getUserInfo().subscribe((user: User) => {
+        if (notification.receiverId === user.id) {
+          if (notification.type === 'kick') {
+            let refreshToken: RefreshToken = {
+              refreshToken: user.refreshToken!,
+            };
+            this.authService.refreshToken(refreshToken).subscribe();
+          }
+          this.saveNotification(notification).subscribe((result) =>
             this.notifications.push(result)
           );
         }
       });
     };
+    //---------------------------------------------------------
     this.getNotifications().subscribe((result) => {
       this.notifications = result;
     });
+    //---------------------------------------------------------
     this.webSocket.onclose = (event) => {
       console.log('Close:', event);
     };
   }
-
+  
   public sendNotification(notification: Notification) {
     this.webSocket.send(JSON.stringify(notification));
   }

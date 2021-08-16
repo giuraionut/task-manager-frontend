@@ -7,12 +7,12 @@ import { TeamService } from '../../services/team.service';
   styleUrls: ['./team.component.scss'],
 })
 export class TeamComponent implements OnInit {
-  constructor(private teamService: TeamService) {}
+  constructor(public teamService: TeamService) {}
 
-  public users: Array<User> = [];
+  public members: Array<User> = [];
   ngOnInit(): void {
-    this.teamService.getTeamMembers().subscribe((response) => {
-      this.users = response;
+    this.teamService.getTeamMembers().subscribe(members => {
+      this.members = members;
     });
   }
 }

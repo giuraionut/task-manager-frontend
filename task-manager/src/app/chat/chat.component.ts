@@ -1,27 +1,41 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatMessage } from '../models/ChatMessage.model';
-import { ChatService } from '../services/chatWebSocket.service';
-
+import { User } from '../models/User.model';
+import { ChatService } from '../services/chatApi.service';
+import { chatMembersService } from '../services/chatMembers.service';
+import { ChatSocketService } from '../services/chatWebSocket.service';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  constructor(public chatService: ChatService) {}
-
+  constructor(
+    public chatSocketService: ChatSocketService,
+    private userService: UserService,
+    public chatMemberService: chatMembersService
+  ) {}
+  private user: User = {};
   ngOnInit(): void {
-    this.chatService.openChatConnection();
+    this.userService.getUserInfo().subscribe((user) => {
+      this.user = user;
+    });
+    this.chatSocketService.openChatConnection();
   }
 
   ngOnDestroy(): void {
-    this.chatService.closeChatConnection();
+    this.chatSocketService.closeChatConnection();
   }
 
-  public sendMessage(name: string, content: string) {
+  public sendMessage(content: string) {
     let message: ChatMessage = {};
-    message.user = name;
+    message.senderId = this.user.id;
     message.message = content;
-    this.chatService.sendMessage(message);
+    message.receiverId = this.chatMemberService.partnerId;
+    const timestamp = new Date();
+    timestamp.setHours(timestamp.getHours() + 3);
+    message.timestamp = timestamp;
+    this.chatSocketService.sendMessage(message);
   }
 }

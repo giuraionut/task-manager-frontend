@@ -5,6 +5,11 @@ import { TeamService } from '../services/team.service';
 import { NotificationSocketService } from '../services/notificationWebSocket.service';
 import { Notification } from '../models/Notification.model';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../items/dialog/dialog.component';
+import { AuthService } from '../services/auth.service';
+import { RefreshToken } from '../models/RefreshToken.model';
 
 @Component({
   selector: 'app-teammanagement',
@@ -15,39 +20,67 @@ export class TeammanagementComponent implements OnInit {
   constructor(
     private teamService: TeamService,
     private userService: UserService,
-    public notificationSocketService: NotificationSocketService
+    public notificationSocketService: NotificationSocketService,
+    private router: Router,
+    public dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
-  public users: Array<User> = [];
+  public members: Array<User> = [];
   public team: Team = {};
   public leader: User = {};
   ngOnInit(): void {
-    this.teamService.getTeam().subscribe((response) => {
-      this.team = response;
-    });
-
-    this.teamService.getTeamMembers().subscribe((response) => {
-      this.users = response;
-    });
     this.userService.getUserInfo().subscribe((response) => {
       this.leader = response;
+
+      if (this.leader.teamId != null) {
+        this.teamService.getTeam().subscribe((response) => {
+          this.team = response;
+        });
+
+        this.teamService.getTeamMembers().subscribe((members) => {
+          this.members = members;
+        });
+      } else {
+        this.router.navigate(['/taskmanager/mainpage']);
+      }
     });
   }
 
-  public sendInvitation(receiver: string) {
-    let notification: Notification = {};
-    notification.content = 'Esti invitat in ' + `"${this.team.name}"`;
-    const timestamp = new Date();
-    timestamp.setHours(timestamp.getHours() + 3);
-    notification.timestamp = timestamp;
-    notification.receiverId = receiver;
-    notification.senderId = this.leader.id;
-    notification.teamId = this.leader.teamId;
-    this.notificationSocketService.sendNotification(notification);
+  public sendInvitation() {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogTitle: 'Invita persoane in echipa ta',
+        label:
+          'Introdu id-ul utilizatorului pe care doresti sa-l adaugi in echipa',
+        hint: 'Id-ul utilizatorului',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== 'false') {
+        let notification: Notification = {};
+        notification.content = `${this.leader.username} te invita in "${this.team.name}"`;
+        const timestamp = new Date();
+        timestamp.setHours(timestamp.getHours() + 3);
+        notification.timestamp = timestamp;
+        notification.receiverId = result;
+        notification.senderId = this.leader.id;
+        notification.teamId = this.leader.teamId;
+        notification.type = 'invitation';
+        this.notificationSocketService.sendNotification(notification);
+      } else {
+        console.log('User aborted');
+      }
+    });
   }
-  
-  public deleteTeam()
-  {
-    this.teamService.deleteTeam().subscribe();
+
+  public deleteTeam() {
+    this.teamService.deleteTeam().subscribe(() => {
+      let refreshToken: RefreshToken = {
+        refreshToken: this.leader.refreshToken!
+      };
+      this.authService.refreshToken(refreshToken).subscribe();
+      this.router.navigate(['/taskmanager/mainpage']);
+    });
   }
 }

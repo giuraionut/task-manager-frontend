@@ -11,21 +11,24 @@
           <div class="text"></div>
           <h2>{{ team.name }}</h2>
           <h2>{{ leader.username }}</h2>
-          <input
-            #id
-            matInput
-            placeholder="User's ID"
-            value="61090f48723222719875f599"
-          />
-          <button (click)="sendInvitation(id.value)">Send invite</button>
-          <br>
-          <button (click)="deleteTeam()">Delete team</button>
+          <div class="controls">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="sendInvitation()"
+            >
+              Invita utilizatori in echipa ta
+            </button>
+            <button mat-raised-button color="primary" (click)="deleteTeam()">
+              Delete team
+            </button>
+          </div>
         </div>
       </div>
       <div class="right" fxFlex="80">
         <div class="members">
           <app-memberitem
-            [members]="users"
+            [members]="members"
             [management]="true"
           ></app-memberitem>
         </div>

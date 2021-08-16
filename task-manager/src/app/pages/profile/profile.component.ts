@@ -6,6 +6,8 @@ import { Team } from '../../models/Team.model';
 import { TeamService } from '../../services/team.service';
 import { AuthService } from '../../services/auth.service';
 import { RefreshToken } from '../../models/RefreshToken.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../items/dialog/dialog.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -16,7 +18,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private teamService: TeamService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   public user: User = {};
@@ -40,10 +43,21 @@ export class ProfileComponent implements OnInit {
   }
 
   public createTeam() {
-    let team: Team = {};
-    team.name = 'Echipa mea';
-    let refreshToken: RefreshToken = { refreshToken: this.user.refreshToken! };
-    this.teamService.createTeam(team).subscribe();
-    this.authService.refreshToken(refreshToken).subscribe();
+    let dialogRef = this.dialog.open(DialogComponent, { data: {dialogTitle: "Creaza o noua echipa", label: "Numele echipei", hint: "Introdu numele echipei"}});
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result != 'false') {
+        let team: Team = {};
+        team.name = result;
+        let refreshToken: RefreshToken = {
+          refreshToken: this.user.refreshToken!,
+        };
+        this.teamService.createTeam(team).subscribe(() => {
+          this.authService.refreshToken(refreshToken).subscribe();
+          this.hasTeam = true;
+        });
+      } else {
+        console.log('Team creation aborted');
+      }
+    });
   }
 }

@@ -3,11 +3,14 @@
 </div>
 <div class="content">
   <div *ngIf="hasTeam" fxLayout="row" fxFlexFill>
-    <div fxFlex="75" fxFlex.md="65" fxFlex.sm="100" fxFlex.lt-sm="100">
+    <div fxFlex="65" fxFlex.md="55" fxFlex.sm="100" fxFlex.lt-sm="100">
       <app-tasks></app-tasks>
     </div>
-    <div fxFlex="25" fxFlex.md="35" fxHide.sm fxHide.xs fxHide.lt-sm>
-      <app-team></app-team>
+    <div fxFlex="35" fxFlex.md="45" fxHide.sm fxHide.xs fxHide.lt-sm>
+      <div class="team">
+        <app-team></app-team>
+      </div>
+      <app-chat></app-chat>
     </div>
   </div>
   <div *ngIf="!hasTeam" fxLayout="row" fxFlexFill>

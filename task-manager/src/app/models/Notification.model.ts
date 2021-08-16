@@ -5,6 +5,5 @@ export interface Notification {
   content?: string;
   receiverId?: string;
   timestamp?: Date;
-
   teamId?: string;
 }

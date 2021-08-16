@@ -1,30 +1,29 @@
 <div class="background">
-  <div class="chat">
-    <form class="example-form">
-        <div *ngFor="let chatMessage of chatService.message">
-            <p>{{chatMessage.user}}: {{chatMessage.message}}</p>
-        </div>
-
-      <mat-form-field class="name" appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput #name maxlength="10" placeholder="John" />
-      </mat-form-field>
-      <mat-form-field class="message" appearance="fill">
-        <mat-label>Message</mat-label>
-        <input
-          matInput
-          #message
-          maxlength="256"
-          placeholder="Ex. I need help with..."
-        />
-        <mat-hint align="start"
-          ><strong>Don't disclose personal info</strong>
-        </mat-hint>
-        <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
-      </mat-form-field>
-     
-    </form>
-    <button mat-raised-button (click)="sendMessage(name.value, message.value)">Send</button>
-   
+  <div class="chat-box">
+    <div *ngFor="let chatMessage of chatSocketService.chats">
+      <div class="message">
+        {{ chatMessage.senderId }}: {{ chatMessage.message }}
+      </div>
+    </div>
+    <div *ngFor="let chatMessage of chatMemberService.dbChats">
+      <div class="message">
+        {{ chatMessage.senderId }}: {{ chatMessage.message }}
+      </div>
+    </div>
   </div>
+  <mat-form-field class="input" appearance="fill">
+    <input
+      matInput
+      #message
+      maxlength="256"
+      placeholder="Chat with..."
+    />
+  </mat-form-field>
+  <button
+    class="send-button"
+    mat-raised-button
+    (click)="sendMessage(message.value)"
+  >
+    Send
+  </button>
 </div>

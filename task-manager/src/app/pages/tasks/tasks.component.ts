@@ -28,9 +28,10 @@ export class TasksComponent implements OnInit {
   }
 
   public getTasks(type: string): void {
+    this.tasks = [];
+    this.taskType = type;
     this.taskService.getTasks(type).subscribe((response) => {
       this.tasks = response;
-      this.taskType = type;
     });
   }
 

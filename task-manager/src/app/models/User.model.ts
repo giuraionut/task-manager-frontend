@@ -11,4 +11,7 @@ export interface User {
   tasksId?: Array<string>;
   avatar?: string;
   refreshToken?: string;
+
+  //frontend specific
+  selected?: Boolean;
 }

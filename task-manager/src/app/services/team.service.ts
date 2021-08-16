@@ -19,11 +19,7 @@ export class TeamService {
   public deleteTeam(): Observable<void> {
     return this.http
       .delete<APIResponse>(`${this.url}`, { withCredentials: true })
-      .pipe(
-        map((response: APIResponse) => {
-          console.log(response.message);
-        })
-      );
+      .pipe(map((response: APIResponse) => {}));
   }
 
   public getTeam(): Observable<Team> {
@@ -38,7 +34,7 @@ export class TeamService {
   }
 
   public getTeamMembers(): Observable<Array<User>> {
-    return this.http
+   return this.http
       .get<APIResponse>(`${this.url}/members`, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {

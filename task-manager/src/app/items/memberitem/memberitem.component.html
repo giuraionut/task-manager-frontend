@@ -1,23 +1,24 @@
 <div fxLayout="row wrap" fxLayoutGap="10px grid">
-  <div *ngIf="members && members.length<2">
+  <div *ngIf="members && members.length === 1">
     <mat-card>Echipa ta nu are nici un membru</mat-card>
   </div>
   <div *ngFor="let member of members" class="container">
-    <mat-card class="example-card">
+    <mat-card *ngIf="member.id != user.id" [ngClass]="member.selected? 'example-card-selected' : 'example-card'">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>{{ member.username }} </mat-card-title>
         <mat-card-subtitle>Coleg</mat-card-subtitle>
       </mat-card-header>
       <mat-card-actions>
-        <div class="member-controls">
-          <mat-icon>message</mat-icon>
+        <div *ngIf="member" class="member-controls">
+          <mat-icon (click)="getChat(member.id!); select(member)">message</mat-icon>
           <mat-icon>person</mat-icon>
           <mat-icon
             *ngIf="management && member.id"
             (click)="kickTeamMember(member.id)"
             >remove_circle</mat-icon
           >
+          <mat-icon></mat-icon>
         </div>
       </mat-card-actions>
     </mat-card>

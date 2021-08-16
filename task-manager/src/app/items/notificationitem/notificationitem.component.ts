@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Notification } from '../../models/Notification.model';
+import { User } from '../../models/User.model';
 import { NotificationSocketService } from '../../services/notificationWebSocket.service';
 import { TeamService } from '../../services/team.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { RefreshToken } from '../../models/RefreshToken.model';
 @Component({
   selector: 'app-notificationitem',
   templateUrl: './notificationitem.component.html',
@@ -13,13 +17,19 @@ export class NotificationitemComponent implements OnInit {
   @Output() dismissedEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     private notificationSocketService: NotificationSocketService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  private user: User = {};
+  ngOnInit(): void {
+    this.userService.getUserInfo().subscribe((result) => {
+      this.user = result;
+    });
+  }
 
   public dismissNotif(notification: Notification) {
-    console.log(notification);
     this.notificationSocketService
       .deleteNotification(notification)
       .subscribe(() => {
@@ -43,17 +53,30 @@ export class NotificationitemComponent implements OnInit {
   public action(notification: Notification) {
     let teamId: string = notification.teamId!;
     this.teamService.acceptInvite(teamId).subscribe(() => {
-      let confirmation: Notification = {};
-      confirmation.content = 'User accepted your invite';
-      confirmation.receiverId = notification.senderId;
-      confirmation.senderId = notification.receiverId;
-      confirmation.type = 'Confirmation';
-      const timestamp = new Date();
-      timestamp.setHours(timestamp.getHours() + 3);
-      notification.timestamp = timestamp;
+      let refreshToken: RefreshToken = {
+        refreshToken: this.user.refreshToken!,
+      };
+      this.authService.refreshToken(refreshToken).subscribe(() => {
+        this.teamService.getTeamMembers().subscribe((members: Array<User>) => {
+          let confirmation: Notification = {};
+          confirmation.content = `${this.user.username} s-a alaturat echipei`;
 
-      this.notificationSocketService.sendNotification(confirmation);
+          confirmation.senderId = notification.receiverId;
+          confirmation.type = 'confirmation';
+          const timestamp = new Date();
+          timestamp.setHours(timestamp.getHours() + 3);
+          confirmation.timestamp = timestamp;
+
+          members.forEach((member) => {
+            if (member.id != confirmation.senderId) {
+              confirmation.receiverId = member.id;
+              this.notificationSocketService.sendNotification(confirmation);
+            }
+          });
+        });
+      });
+
+      this.dismissNotif(notification);
     });
-    this.dismissNotif(notification);
   }
 }
