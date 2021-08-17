@@ -12,11 +12,21 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  public getUserInfo(): Observable<User> {
+  public getProfile(): Observable<User> {
     return this.http
       .get<APIResponse>(`${this.url}/profile`, {
         withCredentials: true,
       })
+      .pipe(
+        map((response: APIResponse) => {
+          return response.payload;
+        })
+      );
+  }
+
+  public getUserInfo(userId: string) {
+    return this.http
+      .get<APIResponse>(`${this.url}/${userId}`, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {
           return response.payload;

@@ -23,7 +23,7 @@ export class MemberitemComponent implements OnInit {
 
   public user: User = {};
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((result: User) => {
+    this.userService.getProfile().subscribe((result: User) => {
       this.user = result;
     });
   }
@@ -37,6 +37,12 @@ export class MemberitemComponent implements OnInit {
   public getChat(id: string) {
     this.chatMemberService.partnerId = id;
     this.chatMemberService.getChat();
+  }
+
+  public getPartnerInfo(id: string) {
+    this.userService.getUserInfo(id).subscribe((user: User) => {
+      this.chatMemberService.user = user;
+    });
   }
   public kickTeamMember(id: string) {
     this.teamService.kickTeamMember(id).subscribe(() => {

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatMessage } from '../models/ChatMessage.model';
 import { User } from '../models/User.model';
-import { ChatService } from '../services/chatApi.service';
 import { chatMembersService } from '../services/chatMembers.service';
 import { ChatSocketService } from '../services/chatWebSocket.service';
 import { UserService } from '../services/user.service';
@@ -17,10 +16,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     public chatMemberService: chatMembersService
   ) {}
   private user: User = {};
+  public partner: User = {};
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((user) => {
+    this.userService.getProfile().subscribe((user) => {
       this.user = user;
     });
+
     this.chatSocketService.openChatConnection();
   }
 
@@ -28,6 +29,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatSocketService.closeChatConnection();
   }
 
+  getSender(chatMessage: ChatMessage) {
+    if (chatMessage.senderId != this.user.id) {
+      return this.chatMemberService.user.username;
+    } else {
+      return 'Eu';
+    }
+  }
+
+  public getPartnerInfo(id: string) {
+    console.log(id);
+    this.userService.getUserInfo(id).subscribe((user: User) => {
+      this.partner = user;
+      console.log(this.partner);
+    });
+  }
   public sendMessage(content: string) {
     let message: ChatMessage = {};
     message.senderId = this.user.id;

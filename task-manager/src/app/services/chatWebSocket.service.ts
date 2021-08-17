@@ -25,10 +25,7 @@ export class ChatSocketService {
     this.webSocket.onmessage = (event) => {
       const chat: ChatMessage = JSON.parse(event.data);
 
-      this.userService.getUserInfo().subscribe((user: User) => {
-        if (user.id === chat.receiverId) {
-          this.chatService.saveChat(chat).subscribe((chat: ChatMessage) => {});
-        }
+      this.userService.getProfile().subscribe((user: User) => {
         if (user.id === chat.receiverId || user.id === chat.senderId) {
           this.chats.push(chat);
         }
@@ -40,8 +37,10 @@ export class ChatSocketService {
     };
   }
 
-  public sendMessage(message: ChatMessage) {
-    this.webSocket.send(JSON.stringify(message));
+  public sendMessage(chat: ChatMessage) {
+    this.webSocket.send(JSON.stringify(chat));
+
+    this.chatService.saveChat(chat).subscribe();
   }
 
   public closeChatConnection() {

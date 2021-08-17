@@ -30,7 +30,7 @@ export class TeammanagementComponent implements OnInit {
   public team: Team = {};
   public leader: User = {};
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((response) => {
+    this.userService.getProfile().subscribe((response) => {
       this.leader = response;
 
       if (this.leader.teamId != null) {

@@ -11,7 +11,7 @@ export class MainpageComponent implements OnInit {
 
   public hasTeam: boolean = false;
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((user: User) => {
+    this.userService.getProfile().subscribe((user: User) => {
       if (user.teamId != null) {
         this.hasTeam = true;
       }

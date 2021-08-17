@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
 
   //------------------------------------------------------------------------------------------------
   public getUserInfo() {
-    this.userService.getUserInfo().subscribe((user) => {
+    this.userService.getProfile().subscribe((user) => {
       this.user = user;
       if (this.user.teamId != null) {
         this.hasTeam = true;

@@ -75,7 +75,7 @@ export class NotificationSocketService {
     this.webSocket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       let notification: Notification = message;
-      this.userService.getUserInfo().subscribe((user: User) => {
+      this.userService.getProfile().subscribe((user: User) => {
         if (notification.receiverId === user.id) {
           if (notification.type === 'kick') {
             let refreshToken: RefreshToken = {

@@ -24,7 +24,7 @@ export class NotificationitemComponent implements OnInit {
 
   private user: User = {};
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((result) => {
+    this.userService.getProfile().subscribe((result) => {
       this.user = result;
     });
   }
