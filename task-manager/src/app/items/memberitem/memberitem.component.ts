@@ -5,6 +5,8 @@ import { TeamService } from '../../services/team.service';
 import { UserService } from '../../services/user.service';
 import { Notification } from '../../models/Notification.model';
 import { chatMembersService } from '../../services/chatMembers.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 @Component({
   selector: 'app-memberitem',
   templateUrl: './memberitem.component.html',
@@ -18,7 +20,8 @@ export class MemberitemComponent implements OnInit {
     private teamService: TeamService,
     private userService: UserService,
     public notificationSocketService: NotificationSocketService,
-    private chatMemberService: chatMembersService
+    private chatMemberService: chatMembersService,
+    public dialog: MatDialog,
   ) {}
 
   public user: User = {};
@@ -56,6 +59,17 @@ export class MemberitemComponent implements OnInit {
       notification.type = 'kick';
       this.notificationSocketService.sendNotification(notification);
       this.members = this.members.filter((member) => member.id != id);
+    });
+  }
+
+  public assignTask(username: string, id: string)
+  {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogType: 'newtask',
+        username: username,
+        responsibleId: id
+      },
     });
   }
 }

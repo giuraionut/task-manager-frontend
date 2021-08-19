@@ -2,7 +2,7 @@
   <div class="task-menu" *ngIf="showMenu">
     <mat-card class="task-menu-buttons">
       <mat-icon (click)="showMenu = false">close</mat-icon>
-      <mat-icon *ngIf="taskType === 'private'" (click)="newTask()"
+      <mat-icon (click)="newTask()"
         >add</mat-icon
       >
       <mat-icon (click)="teamTasks()">people</mat-icon>

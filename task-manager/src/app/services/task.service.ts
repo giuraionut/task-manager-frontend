@@ -35,8 +35,14 @@ export class TaskService {
       );
   }
   public editTask(task: Task): Observable<APIResponse> {
+    let type = '';
+    if (task.private) {
+      type = 'private';
+    } else {
+      type = `public`;
+    }
     return this.http
-      .put<APIResponse>(`${this.url}/private`, task, {
+      .put<APIResponse>(`${this.url}/${type}`, task, {
         withCredentials: true,
       })
       .pipe(take(1));
@@ -52,8 +58,16 @@ export class TaskService {
   }
 
   public newTask(task: Task): Observable<Task> {
+    let type = '';
+    if (task.private) {
+      type = 'private';
+    } else {
+      type = `public/${task.responsibleId}`;
+    }
     return this.http
-      .post<APIResponse>(`${this.url}/private`, task, { withCredentials: true })
+      .post<APIResponse>(`${this.url}/${type}`, task, {
+        withCredentials: true,
+      })
       .pipe(
         map((response: APIResponse) => {
           let task: Task = response.payload;

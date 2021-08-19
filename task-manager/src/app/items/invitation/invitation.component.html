@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Invita un nou mebmbru in echipa ta!</h1>
+<div mat-dialog-content>
+  <p>Introdu ID-ul utilizatorului</p>
+  <mat-form-field appearance="fill">
+    <mat-label>id</mat-label>
+    <input #text matInput />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="text.value">Ok</button>
+  <button mat-button mat-dialog-close="false">Cancel</button>
+</div>

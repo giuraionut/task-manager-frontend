@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel hideToggle [ngClass]="{ disabled: !task.open }">
+  <mat-expansion-panel hideToggle [ngClass]="{ disabled: !task.open }" *ngIf="task.authorId && task.lastUserId" (click)="taskInfo(task.authorId, task.lastUserId)">
     <mat-expansion-panel-header>
       <mat-panel-title> {{ task.name }} </mat-panel-title>
       <mat-panel-description>
@@ -25,7 +25,8 @@
       >{{ task.details }}</textarea
     >
     <mat-divider></mat-divider>
-    <p class="task-details">Responsabil: {{ task.responsibleId }}</p>
+    <p class="task-details" *ngIf="task.authorId">Autor: {{author.username}}</p>
+    <p class="task-details" *ngIf="task.responsibleId">Ultima accesare: {{lastUser.username}}</p>
     <mat-divider></mat-divider>
     <p class="task-controls">
       <!-- <mat-icon>comment</mat-icon> -->

@@ -41,6 +41,8 @@ import { Interceptor } from './services/interceptor.service';
 import { NotificationitemComponent } from './items/notificationitem/notificationitem.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './items/dialog/dialog.component';
+import { NewtaskComponent } from './items/newtask/newtask.component';
+import { InvitationComponent } from './items/invitation/invitation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +61,8 @@ import { DialogComponent } from './items/dialog/dialog.component';
     TeammanagementComponent,
     NotificationitemComponent,
     DialogComponent,
+    NewtaskComponent,
+    InvitationComponent,
   ],
   imports: [
     BrowserModule,

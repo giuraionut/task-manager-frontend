@@ -45,6 +45,11 @@ export class TasksComponent implements OnInit {
     let task: Task = {};
     task.name = 'New task';
     task.details = 'New task content';
+    if (this.taskType === 'private') {
+      task.private = true;
+    } else if (this.taskType === 'public') {
+      task.private = false;
+    }
     this.taskService.newTask(task).subscribe(
       (response) => {
         this.tasks.push(response);

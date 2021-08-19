@@ -11,14 +11,14 @@
       </mat-card-header>
       <mat-card-actions>
         <div *ngIf="member" class="member-controls">
-          <mat-icon (click)="getChat(member.id!); getPartnerInfo(member.id!); select(member)">message</mat-icon>
+          <mat-icon *ngIf="!management" (click)="getChat(member.id!); getPartnerInfo(member.id!); select(member)">message</mat-icon>
           <mat-icon>person</mat-icon>
           <mat-icon
             *ngIf="management && member.id"
             (click)="kickTeamMember(member.id)"
             >remove_circle</mat-icon
           >
-          <mat-icon></mat-icon>
+          <mat-icon *ngIf="management && member.username && member.id" (click)="assignTask(member.username, member.id)">add</mat-icon>
         </div>
       </mat-card-actions>
     </mat-card>

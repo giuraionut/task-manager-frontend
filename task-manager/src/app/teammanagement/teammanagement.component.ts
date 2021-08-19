@@ -50,10 +50,7 @@ export class TeammanagementComponent implements OnInit {
   public sendInvitation() {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        dialogTitle: 'Invita persoane in echipa ta',
-        label:
-          'Introdu id-ul utilizatorului pe care doresti sa-l adaugi in echipa',
-        hint: 'Id-ul utilizatorului',
+        dialogType: 'invitation',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -77,7 +74,7 @@ export class TeammanagementComponent implements OnInit {
   public deleteTeam() {
     this.teamService.deleteTeam().subscribe(() => {
       let refreshToken: RefreshToken = {
-        refreshToken: this.leader.refreshToken!
+        refreshToken: this.leader.refreshToken!,
       };
       this.authService.refreshToken(refreshToken).subscribe();
       this.router.navigate(['/taskmanager/mainpage']);

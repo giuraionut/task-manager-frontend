@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Creaza un nou task</h1>
+<div mat-dialog-content>
+  <p>Membru: {{ data.username }} {{ data.responsibleId }}</p>
+  <div class="task">
+    <mat-form-field appearance="fill">
+      <mat-label>Numele sarcinii</mat-label>
+      <input #name matInput />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Detalii despre sarcina</mat-label>
+      <textarea #details matInput placeholder="Trebuie sa..."></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click) = "createTask(name.value, details.value)">
+    Ok
+  </button>
+  <button mat-button mat-dialog-close="false">Cancel</button>
+</div>

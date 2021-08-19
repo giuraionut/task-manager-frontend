@@ -1,12 +1,7 @@
-<h1 mat-dialog-title>{{ data.dialogTitle }}</h1>
-<div mat-dialog-content>
-  <p>{{ data.hint }}</p>
-  <mat-form-field appearance="fill">
-    <mat-label>{{ data.label }}</mat-label>
-    <input #text matInput />
-  </mat-form-field>
+<div *ngIf="data.dialogType === 'invitation'">
+  <app-invitation></app-invitation>
 </div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="text.value">Ok</button>
-  <button mat-button mat-dialog-close="false">Cancel</button>
+
+<div *ngIf="data.dialogType === 'newtask'">
+  <app-newtask [data]="data"></app-newtask>
 </div>

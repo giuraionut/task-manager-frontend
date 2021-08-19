@@ -24,7 +24,7 @@ export class UserService {
       );
   }
 
-  public getUserInfo(userId: string) {
+  public getUserInfo(userId: string): Observable<User> {
     return this.http
       .get<APIResponse>(`${this.url}/${userId}`, { withCredentials: true })
       .pipe(
