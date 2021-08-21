@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { APIResponse } from '../../models/APIResponse.model';
 import { Task } from '../../models/Task.model';
 import { User } from '../../models/User.model';
-import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
+import { TaskService } from '../../services/task.service';
+
 @Component({
   selector: 'app-taskitem',
   templateUrl: './taskitem.component.html',
@@ -13,8 +13,7 @@ import { UserService } from '../../services/user.service';
 export class TaskitemComponent implements OnInit {
   @Input() task!: Task;
   @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter<Task>();
-  taskStatus: Subscription = new Subscription();
-  taskEdit: Subscription = new Subscription();
+
   constructor(
     private taskService: TaskService,
     private userService: UserService
@@ -30,16 +29,21 @@ export class TaskitemComponent implements OnInit {
   }
   public onChangeStatus(task: Task) {
     task.open = !task.open;
-    this.taskEdit = this.taskService
-      .editTask(task)
-      .subscribe((response: APIResponse) => {
-        console.log(response);
-      });
+    this.taskService.editTask(task).subscribe((response: APIResponse) => {
+      console.log(response);
+    });
+  }
+
+  public checkAuthor(authorId: string) {
+    if (this.user.id === authorId) {
+      return true;
+    }
+    return false;
   }
 
   public editTaskDetails(task: Task, newDetails: string) {
     task.details = newDetails.trim();
-    this.taskEdit = this.taskService.editTask(task).subscribe();
+    this.taskService.editTask(task).subscribe();
     this.lastUser = this.user;
   }
 
@@ -57,8 +61,4 @@ export class TaskitemComponent implements OnInit {
   }
 
   public toggleInput: boolean = false;
-
-  ngOnDestroy(): void {
-    this.taskStatus.unsubscribe();
-  }
 }

@@ -68,7 +68,8 @@ export class MemberitemComponent implements OnInit {
       data: {
         dialogType: 'newtask',
         username: username,
-        responsibleId: id
+        responsibleId: id,
+        teamId: this.user.teamId,
       },
     });
   }

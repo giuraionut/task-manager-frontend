@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Creaza-ti o echipa!</h1>
+<div mat-dialog-content>
+  <p>Introdu numele echipei</p>
+  <mat-form-field appearance="fill">
+    <mat-label>numele echipei</mat-label>
+    <input #teamName matInput />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="createTeam(teamName.value)">Ok</button>
+  <button mat-button mat-dialog-close="false">Cancel</button>
+</div>

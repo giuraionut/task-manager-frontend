@@ -12,19 +12,30 @@
       <h3>{{ user.email }}</h3>
     </div>
 
-    <mat-divider></mat-divider>
-    <div class="profile-info">
-      <h4>My public tasks</h4>
+    <div *ngIf="hasTeam">
+      <mat-divider></mat-divider>
+      <div class="profile-info">
+        <h4>My public tasks</h4>
+      </div>
+
+      <app-taskprogressbar></app-taskprogressbar>
     </div>
-
-    <app-taskprogressbar></app-taskprogressbar>
-
     <mat-divider></mat-divider>
     <mat-card class="profile-buttons">
-      <button *ngIf="hasTeam" mat-raised-button color="primary" (click)="teamManagement()">
+      <button
+        *ngIf="isTeamLeader"
+        mat-raised-button
+        color="primary"
+        (click)="teamManagement()"
+      >
         Echipa mea
       </button>
-      <button *ngIf="!hasTeam" mat-raised-button color="primary" (click)="createTeam()">
+      <button
+        *ngIf="!hasTeam"
+        mat-raised-button
+        color="primary"
+        (click)="createTeam()"
+      >
         Creaza o echipa
       </button>
       <div class="profile-info">

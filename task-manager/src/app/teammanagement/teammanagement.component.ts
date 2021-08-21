@@ -30,12 +30,15 @@ export class TeammanagementComponent implements OnInit {
   public team: Team = {};
   public leader: User = {};
   ngOnInit(): void {
-    this.userService.getProfile().subscribe((response) => {
+    this.userService.getProfile().subscribe((response: User) => {
       this.leader = response;
 
       if (this.leader.teamId != null) {
-        this.teamService.getTeam().subscribe((response) => {
+        this.teamService.getTeam().subscribe((response: Team) => {
           this.team = response;
+          if (this.team.authorId != this.leader.id) {
+            this.router.navigate(['/taskmanager/mainpage']);
+          }
         });
 
         this.teamService.getTeamMembers().subscribe((members) => {
@@ -47,27 +50,13 @@ export class TeammanagementComponent implements OnInit {
     });
   }
 
-  public sendInvitation() {
+  public openInvitationDialog() {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogType: 'invitation',
+        leader: this.leader,
+        team: this.team,
       },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result !== 'false') {
-        let notification: Notification = {};
-        notification.content = `${this.leader.username} te invita in "${this.team.name}"`;
-        const timestamp = new Date();
-        timestamp.setHours(timestamp.getHours() + 3);
-        notification.timestamp = timestamp;
-        notification.receiverId = result;
-        notification.senderId = this.leader.id;
-        notification.teamId = this.leader.teamId;
-        notification.type = 'invitation';
-        this.notificationSocketService.sendNotification(notification);
-      } else {
-        console.log('User aborted');
-      }
     });
   }
 

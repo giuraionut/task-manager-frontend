@@ -22,11 +22,22 @@ export class TaskService {
         })
       );
   }
-  public getTasks(type: string): Observable<Array<Task>> {
+  public getPrivateTasks(): Observable<Array<Task>> {
     return this.http
-      .get<APIResponse>(`${this.url}/${type}`, {
+      .get<APIResponse>(`${this.url}/private`, {
         withCredentials: true,
       })
+      .pipe(
+        map((response: APIResponse) => {
+          let tasks: Array<Task> = [...response.payload];
+          return tasks;
+        })
+      );
+  }
+
+  public getPublicTasks(): Observable<Array<Task>> {
+    return this.http
+      .get<APIResponse>(`${this.url}/public`, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {
           let tasks: Array<Task> = [...response.payload];
@@ -49,8 +60,14 @@ export class TaskService {
   }
 
   public deleteTask(task: Task): Observable<APIResponse> {
+    let type = '';
+    if (task.private) {
+      type = 'private';
+    } else {
+      type = `public`;
+    }
     return this.http
-      .delete<APIResponse>(`${this.url}/private`, {
+      .delete<APIResponse>(`${this.url}/${type}`, {
         withCredentials: true,
         body: task,
       })

@@ -1,5 +1,10 @@
 <mat-accordion>
-  <mat-expansion-panel hideToggle [ngClass]="{ disabled: !task.open }" *ngIf="task.authorId && task.lastUserId" (click)="taskInfo(task.authorId, task.lastUserId)">
+  <mat-expansion-panel
+    hideToggle
+    [ngClass]="{ disabled: !task.open }"
+    *ngIf="task.authorId && task.lastUserId"
+    (click)="!task.private ? taskInfo(task.authorId, task.lastUserId) : ''"
+  >
     <mat-expansion-panel-header>
       <mat-panel-title> {{ task.name }} </mat-panel-title>
       <mat-panel-description>
@@ -24,15 +29,28 @@
       type="text"
       >{{ task.details }}</textarea
     >
-    <mat-divider></mat-divider>
-    <p class="task-details" *ngIf="task.authorId">Autor: {{author.username}}</p>
-    <p class="task-details" *ngIf="task.responsibleId">Ultima accesare: {{lastUser.username}}</p>
+    <div *ngIf="!task.private">
+      <mat-divider></mat-divider>
+      <p class="task-details" *ngIf="task.authorId">
+        Autor: {{ author.username }}
+      </p>
+    </div>
+    <div *ngIf="!task.private">
+      <p class="task-details" *ngIf="task.responsibleId">
+        Ultima accesare: {{ lastUser.username }}
+      </p>
+    </div>
     <mat-divider></mat-divider>
     <p class="task-controls">
-      <!-- <mat-icon>comment</mat-icon> -->
-      <mat-icon (click)="onDelete(task)">delete</mat-icon>
+      <mat-icon *ngIf="checkAuthor(task.authorId)" (click)="onDelete(task)"
+        >delete</mat-icon
+      >
       <mat-icon (click)="onChangeStatus(task)">check_circle</mat-icon>
-      <mat-icon (click)="toggleInput = !toggleInput">edit</mat-icon>
+      <mat-icon
+        *ngIf="checkAuthor(task.authorId)"
+        (click)="toggleInput = !toggleInput"
+        >edit</mat-icon
+      >
     </p>
   </mat-expansion-panel>
 </mat-accordion>

@@ -43,6 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './items/dialog/dialog.component';
 import { NewtaskComponent } from './items/newtask/newtask.component';
 import { InvitationComponent } from './items/invitation/invitation.component';
+import { NewteamComponent } from './items/newteam/newteam.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { InvitationComponent } from './items/invitation/invitation.component';
     DialogComponent,
     NewtaskComponent,
     InvitationComponent,
+    NewteamComponent,
   ],
   imports: [
     BrowserModule,

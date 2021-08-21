@@ -2,18 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/Task.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../../models/User.model';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private userService: UserService,
+    private taskService: TaskService
+  ) {}
 
   public tasks: Array<Task> = [];
-
+  public hasTeam: Boolean = false;
   ngOnInit(): void {
     console.log('Personal tasks initialized');
+    this.userService.getProfile().subscribe((user: User) => {
+      if (user.teamId != null) {
+        this.hasTeam = true;
+      }
+    });
     this.getTasks('private');
   }
 
@@ -30,9 +40,15 @@ export class TasksComponent implements OnInit {
   public getTasks(type: string): void {
     this.tasks = [];
     this.taskType = type;
-    this.taskService.getTasks(type).subscribe((response) => {
-      this.tasks = response;
-    });
+    if (type === 'public') {
+      this.taskService.getPublicTasks().subscribe((response) => {
+        this.tasks = response;
+      });
+    } else if (type === 'private') {
+      this.taskService.getPrivateTasks().subscribe((response) => {
+        this.tasks = response;
+      });
+    }
   }
 
   public deleteTaskFunc(task: Task): void {

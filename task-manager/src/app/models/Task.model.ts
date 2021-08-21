@@ -1,5 +1,6 @@
 export interface Task {
   id?: string;
+  teamId?: string;
   name?: string;
   details?: string;
   open?: boolean;
