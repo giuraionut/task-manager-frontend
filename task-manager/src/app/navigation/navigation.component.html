@@ -10,6 +10,7 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
+    <!---------------------------------------------------------------------------------------------------->
     <button
       mat-icon-button
       class="notification-icon"
@@ -17,25 +18,26 @@
     >
       <mat-icon
         *ngIf="
-          notificationSocketService.notifications.length === 0 || dismissed
+          notificationSocketService.notifications.length === 0
         "
         >notifications</mat-icon
       >
       <mat-icon
         *ngIf="
-          notificationSocketService.notifications.length !== 0 && !dismissed
+          notificationSocketService.notifications.length !== 0
         "
-        [ngClass]="activeBell ? 'notif-active' : 'notif'"
-        (click)="activeBell = false"
+        [ngClass]="notificationSocketService.activeBell ? 'notif-active' : 'notif'"
+        (click)="notificationSocketService.activeBell = false"
         >notifications_active</mat-icon
       >
     </button>
     <mat-menu #notifications class="purple notifications-dropdown">
       <app-notificationitem
-        (dismissedEvent)="dismissed = true"
+        (dismissedEvent)="notificationSocketService.activeBell = true"
         [notifications]="notificationSocketService.notifications"
       ></app-notificationitem>
     </mat-menu>
+    <!---------------------------------------------------------------------------------------------------->
     <button
       mat-icon-button
       class="profile-icon"

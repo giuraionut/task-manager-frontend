@@ -15,7 +15,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private userService: UserService,
     public chatMemberService: chatMembersService
   ) {}
-  private user: User = {};
+  public user: User = {};
   public partner: User = {};
   ngOnInit(): void {
     this.userService.getProfile().subscribe((user) => {
@@ -54,4 +54,5 @@ export class ChatComponent implements OnInit, OnDestroy {
     message.timestamp = timestamp;
     this.chatSocketService.sendMessage(message);
   }
+
 }

@@ -14,10 +14,9 @@ import { UserService } from './user.service';
 })
 export class NotificationSocketService {
   webSocket!: WebSocket;
-  notifications: Notification[] = [];
-  received: Boolean[] = [];
+  public notifications: Notification[] = [];
   private url = 'http://localhost:8080/notification/api';
-
+  public activeBell = true;
   constructor(
     private userService: UserService,
     private http: HttpClient,
@@ -83,22 +82,23 @@ export class NotificationSocketService {
             };
             this.authService.refreshToken(refreshToken).subscribe();
           }
-          this.saveNotification(notification).subscribe((result) =>
-            this.notifications.push(result)
-          );
+          this.saveNotification(notification).subscribe((result) => {
+            this.notifications.push(result);
+          });
         }
       });
     };
     //---------------------------------------------------------
     this.getNotifications().subscribe((result) => {
       this.notifications = result;
+      this.activeBell = true;
     });
     //---------------------------------------------------------
     this.webSocket.onclose = (event) => {
       console.log('Close:', event);
     };
   }
-  
+
   public sendNotification(notification: Notification) {
     this.webSocket.send(JSON.stringify(notification));
   }

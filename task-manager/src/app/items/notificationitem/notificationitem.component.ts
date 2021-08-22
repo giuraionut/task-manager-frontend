@@ -16,7 +16,7 @@ export class NotificationitemComponent implements OnInit {
   @Input() notifications: Array<Notification> = [];
   @Output() dismissedEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(
-    private notificationSocketService: NotificationSocketService,
+    public notificationSocketService: NotificationSocketService,
     private teamService: TeamService,
     private userService: UserService,
     private authService: AuthService
@@ -36,6 +36,10 @@ export class NotificationitemComponent implements OnInit {
         this.notifications = this.notifications.filter(
           (notif) => notif != notification
         );
+        this.notificationSocketService.notifications =
+          this.notificationSocketService.notifications.filter(
+            (notif) => notif != notification
+          );
         if (this.notifications.length == 0) {
           this.dismissedEvent.emit(true);
         }
@@ -46,8 +50,6 @@ export class NotificationitemComponent implements OnInit {
     this.notifications.forEach((notification) => {
       this.dismissNotif(notification);
     });
-
-    this.dismissedEvent.emit(true);
   }
 
   public action(notification: Notification) {
@@ -75,7 +77,6 @@ export class NotificationitemComponent implements OnInit {
           });
         });
       });
-
       this.dismissNotif(notification);
     });
   }

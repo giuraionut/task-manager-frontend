@@ -10,13 +10,17 @@
   height: 340px;
   color: white;
   overflow: auto;
+  scroll-snap-align: end;
 }
 
-.input {
-  width: 85%;
+.field-input {
+  width: 100%;
   color: white;
 }
-
+button {
+  height: 35px;
+  margin-bottom: 20px;
+}
 ::ng-deep .mat-form-field-flex {
   padding: 0 !important;
 }
@@ -36,4 +40,9 @@
   background-color: rgb(102, 38, 102);
   border-radius: 10px;
   padding: 5px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
 }

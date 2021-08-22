@@ -15,9 +15,6 @@ export class NavigationComponent implements OnInit {
     public notificationSocketService: NotificationSocketService
   ) {}
 
-  public activeBell: Boolean = true;
-  public dismissed: Boolean = false;
-
   ngOnInit(): void {
     this.notificationSocketService.openNotificationChannel();
   }

@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="no-notif" *ngIf="notifications.length === 0">
+  <div class="no-notif" *ngIf="notifications.length === 0 && notificationSocketService.notifications.length === 0">
     <div class="content">No notifications</div>
   </div>
   <div *ngFor="let notification of notifications">
