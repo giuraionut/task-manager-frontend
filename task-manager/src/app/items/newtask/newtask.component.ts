@@ -12,6 +12,7 @@ import { User } from '../../models/User.model';
 })
 export class NewtaskComponent implements OnInit {
   @Input() data: any;
+
   constructor(
     private taskService: TaskService,
     public notificationSocketService: NotificationSocketService,
@@ -19,6 +20,7 @@ export class NewtaskComponent implements OnInit {
   ) {}
 
   private user: User = {};
+
   public createTask(name: string, details: string): void {
     let task: Task = {};
     task.name = name;
@@ -26,16 +28,19 @@ export class NewtaskComponent implements OnInit {
     task.responsibleId = this.data.responsibleId;
     task.private = false;
     task.teamId = this.data.teamId;
+
     this.taskService.newTask(task).subscribe((task: Task) => {
       let notification: Notification = {};
-
       notification.receiverId = this.data.responsibleId;
       notification.senderId = this.user.id;
+
       const timestamp = new Date();
       timestamp.setHours(timestamp.getHours() + 3);
       notification.timestamp = timestamp;
       notification.type = 'newtask';
+      
       notification.content = `Ai primit un nou task: ${task.name}`;
+
       this.notificationSocketService.sendNotification(notification);
     });
   }

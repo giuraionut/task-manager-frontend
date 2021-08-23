@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { User } from '../../models/User.model';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { FormControl, Validators } from '@angular/forms';
+interface Gender {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -16,6 +21,11 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {}
 
+  genders: Gender[] = [
+    { value: 'male', viewValue: 'Masculin' },
+    { value: 'female', viewValue: 'Feminin' },
+  ];
+
   ngOnInit(): void {
     let loggedIn = localStorage.getItem('loggedIn');
 
@@ -25,6 +35,11 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
+  public emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   public reg: boolean = true;
 
@@ -48,6 +63,7 @@ export class HomeComponent implements OnInit {
         birthDate,
       };
       this.user.register(user);
+      this.reg = false;
     }
   }
 

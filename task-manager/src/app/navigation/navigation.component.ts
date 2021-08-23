@@ -9,6 +9,7 @@ import { NotificationSocketService } from '../services/notificationWebSocket.ser
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  
   constructor(
     private user: UserService,
     private router: Router,

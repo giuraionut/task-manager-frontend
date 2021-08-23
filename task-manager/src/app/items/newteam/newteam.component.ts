@@ -10,6 +10,7 @@ import { RefreshToken } from '../../models/RefreshToken.model';
 })
 export class NewteamComponent implements OnInit {
   @Input() data: any;
+
   constructor(
     private teamService: TeamService,
     private authService: AuthService
@@ -21,9 +22,9 @@ export class NewteamComponent implements OnInit {
     let team: Team = {};
     team.authorId = this.data.leader.id;
     team.name = teamName;
+
     this.teamService.createTeam(team).subscribe(() => {
       let refreshToken: RefreshToken = { refreshToken: this.data.refreshToken };
-
       this.authService.refreshToken(refreshToken).subscribe();
     });
   }

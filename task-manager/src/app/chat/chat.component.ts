@@ -10,18 +10,20 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnDestroy {
+
   constructor(
     public chatSocketService: ChatSocketService,
     private userService: UserService,
     public chatMemberService: chatMembersService
   ) {}
+
   public user: User = {};
   public partner: User = {};
+
   ngOnInit(): void {
     this.userService.getProfile().subscribe((user) => {
       this.user = user;
     });
-
     this.chatSocketService.openChatConnection();
   }
 
@@ -44,15 +46,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       console.log(this.partner);
     });
   }
+
   public sendMessage(content: string) {
     let message: ChatMessage = {};
     message.senderId = this.user.id;
     message.message = content;
     message.receiverId = this.chatMemberService.partnerId;
+
     const timestamp = new Date();
     timestamp.setHours(timestamp.getHours() + 3);
+
     message.timestamp = timestamp;
+
     this.chatSocketService.sendMessage(message);
   }
-
 }

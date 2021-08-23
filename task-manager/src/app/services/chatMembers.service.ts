@@ -13,6 +13,7 @@ export class chatMembersService {
   public dbChats: Array<ChatMessage> = [];
   public partnerId: string = '';
   public user: User = {};
+  
   public getChat(): void {
     if (this.partnerId != null) {
       console.log(this.partnerId);

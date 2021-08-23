@@ -7,6 +7,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class ChatSocketService {
+
   webSocket!: WebSocket;
   chats: ChatMessage[] = [];
 
@@ -31,6 +32,7 @@ export class ChatSocketService {
         }
       });
     };
+
     //---------------------------------------------------------------------
     this.webSocket.onclose = (event) => {
       console.log('Close:', event);
@@ -39,7 +41,6 @@ export class ChatSocketService {
 
   public sendMessage(chat: ChatMessage) {
     this.webSocket.send(JSON.stringify(chat));
-
     this.chatService.saveChat(chat).subscribe();
   }
 

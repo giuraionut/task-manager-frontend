@@ -33,11 +33,13 @@ export class ProfileComponent implements OnInit {
       if (this.user.teamId != null) {
         this.hasTeam = true;
       }
-      this.teamService.getTeam().subscribe((team: Team) => {
-        if (this.user.id === team.authorId) {
-          this.isTeamLeader = true;
-        }
-      });
+      if (this.hasTeam) {
+        this.teamService.getTeam().subscribe((team: Team) => {
+          if (this.user.id === team.authorId) {
+            this.isTeamLeader = true;
+          }
+        });
+      }
     });
   }
 

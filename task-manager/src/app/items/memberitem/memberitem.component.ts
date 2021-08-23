@@ -21,10 +21,11 @@ export class MemberitemComponent implements OnInit {
     private userService: UserService,
     public notificationSocketService: NotificationSocketService,
     private chatMemberService: chatMembersService,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   public user: User = {};
+  
   ngOnInit(): void {
     this.userService.getProfile().subscribe((result: User) => {
       this.user = result;
@@ -37,6 +38,7 @@ export class MemberitemComponent implements OnInit {
     });
     member.selected = true;
   }
+
   public getChat(id: string) {
     this.chatMemberService.partnerId = id;
     this.chatMemberService.getChat();
@@ -47,23 +49,27 @@ export class MemberitemComponent implements OnInit {
       this.chatMemberService.user = user;
     });
   }
+
   public kickTeamMember(id: string) {
     this.teamService.kickTeamMember(id).subscribe(() => {
       let notification: Notification = {};
       notification.content = 'Ai fost exclus din echipa';
       notification.receiverId = id;
       notification.senderId = this.user.id;
+
       const timestamp = new Date();
       timestamp.setHours(timestamp.getHours() + 3);
       notification.timestamp = timestamp;
+
       notification.type = 'kick';
+
       this.notificationSocketService.sendNotification(notification);
+
       this.members = this.members.filter((member) => member.id != id);
     });
   }
 
-  public assignTask(username: string, id: string)
-  {
+  public assignTask(username: string, id: string) {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogType: 'newtask',

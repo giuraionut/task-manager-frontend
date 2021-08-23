@@ -34,7 +34,7 @@ export class TeamService {
   }
 
   public getTeamMembers(): Observable<Array<User>> {
-   return this.http
+    return this.http
       .get<APIResponse>(`${this.url}/members`, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {

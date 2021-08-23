@@ -3,7 +3,10 @@
     <mat-card>Echipa ta nu are nici un membru</mat-card>
   </div>
   <div *ngFor="let member of members" class="container">
-    <mat-card *ngIf="member.id != user.id" [ngClass]="member.selected? 'example-card-selected' : 'example-card'">
+    <mat-card
+      *ngIf="member.id != user.id"
+      [ngClass]="member.selected ? 'example-card-selected' : 'example-card'"
+    >
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>{{ member.username }} </mat-card-title>
@@ -11,14 +14,24 @@
       </mat-card-header>
       <mat-card-actions>
         <div *ngIf="member" class="member-controls">
-          <mat-icon *ngIf="!management" (click)="getChat(member.id!); getPartnerInfo(member.id!); select(member)">message</mat-icon>
+          <mat-icon
+            *ngIf="!management"
+            (click)="
+              getChat(member.id!); getPartnerInfo(member.id!); select(member)
+            "
+            >message</mat-icon
+          >
           <mat-icon>person</mat-icon>
           <mat-icon
             *ngIf="management && member.id"
             (click)="kickTeamMember(member.id)"
             >remove_circle</mat-icon
           >
-          <mat-icon *ngIf="management && member.username && member.id" (click)="assignTask(member.username, member.id)">add</mat-icon>
+          <mat-icon
+            *ngIf="management && member.username && member.id"
+            (click)="assignTask(member.username, member.id)"
+            >add</mat-icon
+          >
         </div>
       </mat-card-actions>
     </mat-card>

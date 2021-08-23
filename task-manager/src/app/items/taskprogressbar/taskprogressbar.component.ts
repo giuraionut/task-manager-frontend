@@ -14,12 +14,14 @@ export class TaskprogressbarComponent implements OnInit {
   ngOnInit(): void {
     this.countPublicTasks();
   }
+
   public countPublicTasks() {
     this.taskService
       .countPublicTasks('public', 'open')
       .subscribe((response) => {
         this.numberOfOpenTasks = response;
       });
+      
     this.taskService
       .countPublicTasks('public', 'closed')
       .subscribe((response) => {

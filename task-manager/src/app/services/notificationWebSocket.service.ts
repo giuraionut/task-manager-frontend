@@ -7,6 +7,7 @@ import { Notification } from '../models/Notification.model';
 import { RefreshToken } from '../models/RefreshToken.model';
 import { User } from '../models/User.model';
 import { AuthService } from './auth.service';
+import { NotificationService } from './notificationApi.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -15,55 +16,14 @@ import { UserService } from './user.service';
 export class NotificationSocketService {
   webSocket!: WebSocket;
   public notifications: Notification[] = [];
-  private url = 'http://localhost:8080/notification/api';
   public activeBell = true;
+
   constructor(
     private userService: UserService,
-    private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {}
 
-  //api------------------------------------------------------------------------------
-  public saveNotification(
-    notification: Notification
-  ): Observable<Notification> {
-    return this.http
-      .post<APIResponse>(`${this.url}`, notification, { withCredentials: true })
-      .pipe(
-        map((response: APIResponse) => {
-          let notification: Notification = response.payload;
-          return notification;
-        })
-      );
-  }
-
-  public getNotifications(): Observable<Array<Notification>> {
-    return this.http
-      .get<APIResponse>(`${this.url}`, { withCredentials: true })
-      .pipe(
-        map((response: APIResponse) => {
-          let notifications: Array<Notification> = response.payload;
-          return notifications;
-        })
-      );
-  }
-
-  public deleteNotification(
-    notification: Notification
-  ): Observable<Notification> {
-    return this.http
-      .delete<APIResponse>(`${this.url}`, {
-        body: notification,
-        withCredentials: true,
-      })
-      .pipe(
-        map((response: APIResponse) => {
-          let notification: Notification = response.payload;
-          return notification;
-        })
-      );
-  }
-  //api------------------------------------------------------------------------------
   public openNotificationChannel() {
     this.webSocket = new WebSocket('ws://localhost:8080/notification');
 
@@ -82,14 +42,16 @@ export class NotificationSocketService {
             };
             this.authService.refreshToken(refreshToken).subscribe();
           }
-          this.saveNotification(notification).subscribe((result) => {
-            this.notifications.push(result);
-          });
+          this.notificationService
+            .saveNotification(notification)
+            .subscribe((result) => {
+              this.notifications.push(result);
+            });
         }
       });
     };
     //---------------------------------------------------------
-    this.getNotifications().subscribe((result) => {
+    this.notificationService.getNotifications().subscribe((result) => {
       this.notifications = result;
       this.activeBell = true;
     });

@@ -1,38 +1,51 @@
 <div class="background">
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Username</mat-label>
-      <input #username matInput placeholder="Ex. John" />
+  <div class="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Nume de utilizator</mat-label>
+      <input #username matInput placeholder="Ex. Ion" />
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Password</mat-label>
-      <input #password matInput placeholder="Very strnog password" />
+    <mat-form-field appearance="fill">
+      <mat-label>Parola</mat-label>
+      <input #password matInput placeholder="Alege o parola puternica" />
     </mat-form-field>
-    <div *ngIf="reg">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input #email matInput placeholder="john@gmail.com" />
+
+    <div class="reg" *ngIf="reg">
+      <mat-form-field appearance="fill">
+        <mat-label>Adresa de Email</mat-label>
+        <input #email matInput placeholder="ion.doe@gmail.com" [formControl]="emailFormControl" />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Trebuie sa introduci o adresa de Email valida
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Adresa de Email este <strong>necesara</strong>
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>First name</mat-label>
-        <input #firstname matInput placeholder="john@gmail.com" />
+      <mat-form-field appearance="fill">
+        <mat-label>Prenume</mat-label>
+        <input #firstname matInput placeholder="Ion" />
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Last name</mat-label>
-        <input #lastname matInput placeholder="john@gmail.com" />
+      <mat-form-field appearance="fill">
+        <mat-label>Nume de familie</mat-label>
+        <input #lastname matInput placeholder="Doe" />
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Gender</mat-label>
-        <input #gender matInput placeholder="john@gmail.com" />
+      <mat-form-field appearance="fill">
+        <mat-label>Gen</mat-label>
+        <mat-select #gender>
+          <mat-option *ngFor="let gender of genders" [value]="gender.value">
+            {{ gender.viewValue }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Birth date</mat-label>
-        <input #birthDate matInput placeholder="john@gmail.com" />
+      <mat-form-field appearance="fill">
+        <mat-label>Data de nastere</mat-label>
+        <input #birthDate matInput [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <button
         mat-stroked-button
@@ -49,18 +62,35 @@
           )
         "
       >
-        Register
+        Creaza cont
       </button>
     </div>
-  </form>
-  <button
-    mat-stroked-button
-    color="primary"
-    *ngIf="!reg"
-    (click)="login(username.value, password.value)"
-  >
-    Login
-  </button>
-  <button *ngIf="reg" (click)="reg = false">Already Registered</button>
-  <button *ngIf="!reg" (click)="reg = true">Don't have an account yet</button>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngIf="!reg"
+      (click)="login(username.value, password.value)"
+    >
+      Autentificare
+    </button>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngIf="reg"
+      (click)="reg = false"
+    >
+      Am deja cont
+    </button>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngIf="!reg"
+      (click)="reg = true"
+    >
+      Nu am cont
+    </button>
+  </div>
 </div>

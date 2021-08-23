@@ -22,11 +22,13 @@ export class TaskitemComponent implements OnInit {
   public author: User = {};
   public lastUser: User = {};
   private user: User = {};
+
   ngOnInit(): void {
     this.userService.getProfile().subscribe((user: User) => {
       this.user = user;
     });
   }
+  
   public onChangeStatus(task: Task) {
     task.open = !task.open;
     this.taskService.editTask(task).subscribe((response: APIResponse) => {

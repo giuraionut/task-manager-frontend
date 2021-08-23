@@ -16,17 +16,14 @@
       class="notification-icon"
       [matMenuTriggerFor]="notifications"
     >
-      <mat-icon
-        *ngIf="
-          notificationSocketService.notifications.length === 0
-        "
+      <mat-icon *ngIf="notificationSocketService.notifications.length === 0"
         >notifications</mat-icon
       >
       <mat-icon
-        *ngIf="
-          notificationSocketService.notifications.length !== 0
+        *ngIf="notificationSocketService.notifications.length !== 0"
+        [ngClass]="
+          notificationSocketService.activeBell ? 'notif-active' : 'notif'
         "
-        [ngClass]="notificationSocketService.activeBell ? 'notif-active' : 'notif'"
         (click)="notificationSocketService.activeBell = false"
         >notifications_active</mat-icon
       >

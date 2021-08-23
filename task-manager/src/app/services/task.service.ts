@@ -45,6 +45,7 @@ export class TaskService {
         })
       );
   }
+  
   public editTask(task: Task): Observable<APIResponse> {
     let type = '';
     if (task.private) {

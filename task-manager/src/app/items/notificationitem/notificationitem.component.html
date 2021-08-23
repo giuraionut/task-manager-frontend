@@ -1,5 +1,11 @@
 <div class="background">
-  <div class="no-notif" *ngIf="notifications.length === 0 && notificationSocketService.notifications.length === 0">
+  <div
+    class="no-notif"
+    *ngIf="
+      notifications.length === 0 &&
+      notificationSocketService.notifications.length === 0
+    "
+  >
     <div class="content">No notifications</div>
   </div>
   <div *ngFor="let notification of notifications">
@@ -14,7 +20,11 @@
       </div>
       <div class="notif-control">
         <mat-icon (click)="dismissNotif(notification)">delete</mat-icon>
-        <mat-icon *ngIf="notification.type === 'invitation'" (click)="action(notification)">check</mat-icon>
+        <mat-icon
+          *ngIf="notification.type === 'invitation'"
+          (click)="action(notification)"
+          >check</mat-icon
+        >
       </div>
     </div>
     <mat-divider></mat-divider>

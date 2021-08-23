@@ -11,7 +11,7 @@ export class TeamComponent implements OnInit {
 
   public members: Array<User> = [];
   ngOnInit(): void {
-    this.teamService.getTeamMembers().subscribe(members => {
+    this.teamService.getTeamMembers().subscribe((members) => {
       this.members = members;
     });
   }

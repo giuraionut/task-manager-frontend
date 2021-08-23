@@ -27,7 +27,7 @@ export class AuthService {
 
   public refreshToken(refreshToken: RefreshToken): Observable<void> {
     return this.http
-      .post<APIResponse>(`${this.url}/token/refresh`,refreshToken , {
+      .post<APIResponse>(`${this.url}/token/refresh`, refreshToken, {
         withCredentials: true,
       })
       .pipe(map((result: APIResponse) => {}));

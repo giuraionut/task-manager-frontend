@@ -30,7 +30,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { AccsettingsComponent } from './pages/accsettings/accsettings.component';
 import { UpdateuserinfoComponent } from './pages/updateuserinfo/updateuserinfo.component';
-import { MatOptionModule } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  MatOptionModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './chat/chat.component';
 import { TaskitemComponent } from './items/taskitem/taskitem.component';
@@ -44,6 +49,22 @@ import { DialogComponent } from './items/dialog/dialog.component';
 import { NewtaskComponent } from './items/newtask/newtask.component';
 import { InvitationComponent } from './items/invitation/invitation.component';
 import { NewteamComponent } from './items/newteam/newteam.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,11 +108,18 @@ import { NewteamComponent } from './items/newteam/newteam.component';
     MatOptionModule,
     MatSelectModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     AuthService,
     HttpClient,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    MatNativeDateModule,
   ],
   bootstrap: [AppComponent],
 })

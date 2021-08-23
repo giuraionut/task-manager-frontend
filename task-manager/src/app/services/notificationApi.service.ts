@@ -9,15 +9,13 @@ import { Notification } from '../models/Notification.model';
   providedIn: 'root',
 })
 export class NotificationService {
-  notifications: Notification[] = [];
 
+  notifications: Notification[] = [];
   private url = 'http://localhost:8080/notification/api';
 
   constructor(private http: HttpClient) {}
 
-  public saveNotification(
-    notification: Notification
-  ): Observable<Notification> {
+  public saveNotification(notification: Notification): Observable<Notification> {
     return this.http
       .post<APIResponse>(`${this.url}`, notification, { withCredentials: true })
       .pipe(
@@ -39,9 +37,7 @@ export class NotificationService {
       );
   }
 
-  public deleteNotification(
-    notification: Notification
-  ): Observable<Notification> {
+  public deleteNotification(notification: Notification): Observable<Notification> {
     return this.http
       .delete<APIResponse>(`${this.url}`, {
         body: notification,
