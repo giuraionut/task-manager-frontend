@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {}
 
+  public hide = true;
   genders: Gender[] = [
     { value: 'male', viewValue: 'Masculin' },
     { value: 'female', viewValue: 'Feminin' },

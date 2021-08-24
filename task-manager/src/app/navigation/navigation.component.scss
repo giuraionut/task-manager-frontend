@@ -2,10 +2,6 @@
   flex: 1 1 auto;
 }
 
-::ng-deep .purple {
-  background-color: purple;
-}
-
 ::ng-deep .notifications-dropdown {
   width: 350px !important;
   max-width: 350px !important;
@@ -64,13 +60,12 @@
 }
 
 .notif-active {
-  color: rgb(250, 168, 200);
-
+  color: var(--blue3);
   animation: Rotate 0.4s ease-in-out infinite;
 }
 
 .notif {
-  color: rgb(250, 168, 200);
+  color: var(--blue3);
 }
 
 @keyframes Rotate {

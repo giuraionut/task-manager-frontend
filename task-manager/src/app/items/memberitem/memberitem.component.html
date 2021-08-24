@@ -1,14 +1,14 @@
 <div fxLayout="row wrap" fxLayoutGap="10px grid">
   <div *ngIf="members && members.length === 1">
-    <mat-card>Echipa ta nu are nici un membru</mat-card>
+    <mat-card class="card" >Echipa ta nu are nici un membru</mat-card>
   </div>
   <div *ngFor="let member of members" class="container">
     <mat-card
       *ngIf="member.id != user.id"
-      [ngClass]="member.selected ? 'example-card-selected' : 'example-card'"
+      [ngClass]="member.selected ? 'selected' : ''"
     >
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar class="header-image"></div>
         <mat-card-title>{{ member.username }} </mat-card-title>
         <mat-card-subtitle>Coleg</mat-card-subtitle>
       </mat-card-header>

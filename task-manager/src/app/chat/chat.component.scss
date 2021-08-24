@@ -1,7 +1,8 @@
 .background {
-  background-color: rgb(78, 10, 67);
   width: 100%;
   height: 100vh;
+  border-left: 1px white solid;
+  border-top: 1px white solid;
 }
 
 //-----------------------------------------------
@@ -32,12 +33,10 @@ button {
   min-width: unset !important;
   margin-left: 10px;
   top: 0;
-  background-color: rgb(107, 54, 107);
 }
 
 .message {
   margin: 10px;
-  background-color: rgb(102, 38, 102);
   border-radius: 10px;
   padding: 5px;
 }

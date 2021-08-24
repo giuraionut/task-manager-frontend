@@ -1,6 +1,5 @@
 .background {
   width: 100%;
-  background-color: #4d123f;
   height: 94vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -50,9 +49,7 @@
   margin: 0 auto;
   margin-top: 10px;
 }
-.mat-card {
-  background-color: rgb(174, 143, 188);
-}
+
 .mat-icon {
   cursor: pointer;
   transition: transform 0.1s ease;

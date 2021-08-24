@@ -1,0 +1,97 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+$dark-palette: (
+  50: #e3f2fd,
+  100: #ffffff,
+  200: #dee9f1,
+  300: #bed9f0,
+  400: #6598c2,
+  500: #6f98b9,
+  600: #386286,
+  700: #2a4f74,
+  800: #273c53,
+  900: #14305a,
+  A100: #74c4c4,
+  A200: #5194bb,
+  A400: #33c2ee,
+  A700: #29b1ff,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+// custom background and foreground palettes
+$my-dark-theme-background: (
+  status-bar: map_get($dark-palette, 900),
+  app-bar: map_get($dark-palette, 900),
+  background: map_get($dark-palette, 800),
+  hover: rgba(white, 0.04),
+  card: map_get($dark-palette, 700),
+  dialog: map_get($dark-palette, 700),
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($dark-palette, 700),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($dark-palette, 600),
+  selected-disabled-button: map_get($dark-palette, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($dark-palette, 700),
+  disabled-list-option: black,
+);
+
+$my-dark-theme-foreground: (
+  base:              white,
+  divider:           $light-dividers,
+  dividers:          $light-dividers,
+  disabled:          $light-disabled-text,
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     $light-disabled-text,
+  elevation:         black,
+  hint-text:         $light-disabled-text,
+  secondary-text:    $light-secondary-text,
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-wonky-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $my-dark-theme-foreground,
+    background: $my-dark-theme-background
+  );
+}
+
+// The rest of this is like a normal theme.scss file. The only difference being that we use create-wonky-theme instead of mat-light-theme
+$custom-theme-primary: mat-palette($dark-palette);
+$custom-theme-accent: mat-palette($dark-palette);
+$custom-theme-warn: mat-palette($mat-red);
+
+$custom-theme: create-wonky-theme(
+  $custom-theme-primary,
+  $custom-theme-accent,
+  $custom-theme-warn
+);
+
+@include angular-material-theme($custom-theme);

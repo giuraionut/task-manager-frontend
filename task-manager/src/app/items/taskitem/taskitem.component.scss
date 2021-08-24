@@ -1,5 +1,4 @@
 .mat-expansion-panel {
-  background-color: rgb(170, 66, 130);
   width: 100%;
 }
 
@@ -44,7 +43,7 @@
   width: 230px;
   min-height: 20px;
   resize: vertical;
-  background-color: rgb(233, 119, 189);
+  background-color: var(--blue3);
   color: white;
   border: none;
   outline: none;

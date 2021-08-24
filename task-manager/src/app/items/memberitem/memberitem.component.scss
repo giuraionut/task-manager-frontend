@@ -1,12 +1,6 @@
-.example-header-image {
+.header-image {
   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-size: cover;
-}
-.example-card {
-  background-color: rgb(133, 55, 100);
-}
-.example-card-selected {
-  background-color: rgb(108, 57, 156) !important;
 }
 .member-controls {
   margin-top: 10px;
@@ -31,4 +25,8 @@
 .container {
   width: 300px;
   margin: 0 auto;
+}
+
+.selected {
+  background-color: gray;
 }

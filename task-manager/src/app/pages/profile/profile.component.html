@@ -21,7 +21,7 @@
       <app-taskprogressbar></app-taskprogressbar>
     </div>
     <mat-divider></mat-divider>
-    <mat-card class="profile-buttons">
+    <div class="profile-buttons">
       <button
         *ngIf="isTeamLeader"
         mat-raised-button
@@ -38,9 +38,6 @@
       >
         Creaza o echipa
       </button>
-      <div class="profile-info">
-        <p>{{ user.teamId }}</p>
-      </div>
-    </mat-card>
+    </div>
   </div>
 </div>
