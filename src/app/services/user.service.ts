@@ -34,6 +34,12 @@ export class UserService {
       );
   }
 
+  public uploadAvatar(image: FormData): Observable<void> {
+    return this.http
+      .put<APIResponse>(`${this.url}/avatar`, image, { withCredentials: true })
+      .pipe(map((response: APIResponse) => {}));
+  }
+
   public signout(): void {
     this.http
       .post<APIResponse>(`${this.url}/signout`, null, { withCredentials: true })

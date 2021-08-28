@@ -6,4 +6,7 @@ export interface Notification {
   receiverId?: string;
   timestamp?: Date;
   teamId?: string;
+
+  //frontend
+  senderAvatar?: string;
 }

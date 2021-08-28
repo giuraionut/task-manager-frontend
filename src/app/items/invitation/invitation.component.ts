@@ -19,7 +19,6 @@ export class InvitationComponent implements OnInit {
     const timestamp = new Date();
     timestamp.setHours(timestamp.getHours() + 3);
     notification.timestamp = timestamp;
-
     notification.receiverId = userId;
     notification.senderId = this.data.leader.id;
     notification.teamId = this.data.team.id;

@@ -1,0 +1,8 @@
+::ng-deep.mat-dialog-container {
+    background-color: rgb(61, 61, 87) !important;
+    color: white !important;
+  }
+  
+  ::ng-deep.cropper {
+    outline: var(--cropper-outline-color, #000);
+  }

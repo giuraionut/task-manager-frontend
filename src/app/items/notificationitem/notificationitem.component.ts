@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { Notification } from '../../models/Notification.model';
 import { User } from '../../models/User.model';
 import { NotificationSocketService } from '../../services/notificationWebSocket.service';
@@ -26,13 +25,11 @@ export class NotificationitemComponent implements OnInit {
   ) {}
 
   private user: User = {};
-
   ngOnInit(): void {
     this.userService.getProfile().subscribe((result) => {
       this.user = result;
     });
   }
-
   public dismissNotif(notification: Notification) {
     this.notificationService.deleteNotification(notification).subscribe(() => {
       this.notifications = this.notifications.filter(

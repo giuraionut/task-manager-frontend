@@ -1,8 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { APIResponse } from '../models/APIResponse.model';
 import { Notification } from '../models/Notification.model';
 import { RefreshToken } from '../models/RefreshToken.model';
 import { User } from '../models/User.model';
@@ -44,17 +40,31 @@ export class NotificationSocketService {
           }
           this.notificationService
             .saveNotification(notification)
-            .subscribe((result) => {
-              this.notifications.push(result);
+            .subscribe((result: Notification) => {
+              this.userService
+                .getUserInfo(result.senderId!)
+                .subscribe((user: User) => {
+                  result.senderAvatar = user.avatar;
+                  this.notifications.push(result);
+                });
             });
         }
       });
     };
     //---------------------------------------------------------
-    this.notificationService.getNotifications().subscribe((result) => {
-      this.notifications = result;
-      this.activeBell = true;
-    });
+    this.notificationService
+      .getNotifications()
+      .subscribe((notifications: Notification[]) => {
+        notifications.forEach((notification) => {
+          this.userService
+            .getUserInfo(notification.senderId!)
+            .subscribe((user: User) => {
+              notification.senderAvatar = user.avatar;
+            });
+        });
+        this.notifications = notifications;
+        this.activeBell = true;
+      });
     //---------------------------------------------------------
     this.webSocket.onclose = (event) => {
       console.log('Close:', event);

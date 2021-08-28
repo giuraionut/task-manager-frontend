@@ -31,14 +31,10 @@
     >
     <div *ngIf="!task.private">
       <mat-divider></mat-divider>
-      <p class="task-details" *ngIf="task.authorId">
-        Autor: {{ author.username }}
-      </p>
+      <p class="task-details">Autor: {{ author.username }}</p>
     </div>
     <div *ngIf="!task.private">
-      <p class="task-details" *ngIf="task.responsibleId">
-        Ultima accesare: {{ lastUser.username }}
-      </p>
+      <p class="task-details">Ultima accesare: {{ lastUser.username }}</p>
     </div>
     <mat-divider></mat-divider>
     <p class="task-controls">

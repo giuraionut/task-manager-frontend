@@ -52,6 +52,8 @@ import { NewteamComponent } from './items/newteam/newteam.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadimgComponent } from './items/uploadimg/uploadimg.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 export const MY_FORMATS = {
   parse: {
@@ -86,6 +88,7 @@ export const MY_FORMATS = {
     NewtaskComponent,
     InvitationComponent,
     NewteamComponent,
+    UploadimgComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,7 @@ export const MY_FORMATS = {
     MatMomentDateModule,
     FormsModule,
     ReactiveFormsModule,
+    ImageCropperModule
   ],
   providers: [
     AuthService,

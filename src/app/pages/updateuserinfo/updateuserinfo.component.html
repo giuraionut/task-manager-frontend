@@ -27,7 +27,7 @@
       </mat-form-field>
     </form>
     <mat-card class="buttons">
-      <button mat-raised-button color="primary">Upload avatar</button>
+      <input type="file" (change)="uploadAvatar($event)">
       <button mat-raised-button color="primary">Submit</button>
     </mat-card>
   </div>

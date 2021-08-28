@@ -1,0 +1,21 @@
+<div class="background">
+  <image-cropper
+    style="width: 600px; height: 600px; float: left"
+    [imageChangedEvent]="imageChangedEvent"
+    (imageCropped)="imageCropped($event)"
+    [aspectRatio]="1 / 1"
+    [resizeToWidth]="400"
+    [onlyScaleDown]="true"
+    [cropperMinWidth]="400"
+    [maintainAspectRatio]="true"
+    [cropperStaticWidth]="400"
+    [cropperStaticHeight]="400"
+    format="png"
+    [transform]="transform"
+  ></image-cropper>
+  <img *ngIf="croppedImage" [src]="croppedImage" />
+</div>
+
+<button mat-button (click)="uploadFile()">Upload</button>
+<button mat-button (click)="zoomIn()">Zoom In</button>
+<button mat-button (click)="zoomOut()">Zoom Out</button>
