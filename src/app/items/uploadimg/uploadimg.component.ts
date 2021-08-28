@@ -9,11 +9,13 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-uploadimg',
   templateUrl: './uploadimg.component.html',
-  styleUrls: ['./uploadimg.component.scss']
+  styleUrls: ['./uploadimg.component.scss'],
 })
 export class UploadimgComponent implements OnInit {
-
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.imageChangedEvent = this.data['image'];
@@ -38,18 +40,15 @@ export class UploadimgComponent implements OnInit {
 
     const fd = new FormData();
     fd.append('image', imageFile, 'image.jpg');
-    this.userService
-      .uploadAvatar(fd)
-      .subscribe();
+    this.userService.uploadAvatar(fd).subscribe();
   }
 
   public zoomIn() {
-    this.scale -= 0.1;
-    this.transform = { ...this.transform, scale: this.scale };
-  }
-  public zoomOut() {
     this.scale += 0.1;
     this.transform = { ...this.transform, scale: this.scale };
   }
+  public zoomOut() {
+    this.scale -= 0.1;
+    this.transform = { ...this.transform, scale: this.scale };
+  }
 }
-

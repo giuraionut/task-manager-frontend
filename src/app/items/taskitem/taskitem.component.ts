@@ -12,6 +12,7 @@ import { TaskService } from '../../services/task.service';
 })
 export class TaskitemComponent implements OnInit {
   @Input() task!: Task;
+  @Input() avatar!: string;
   @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter<Task>();
 
   constructor(
@@ -20,13 +21,15 @@ export class TaskitemComponent implements OnInit {
   ) {}
 
   public author: User = {};
+  public responsible: User = {};
   public lastUser: User = {};
-  private user: User = {};
+  public user: User = {};
 
   ngOnInit(): void {
     this.userService.getProfile().subscribe((user: User) => {
       this.user = user;
     });
+  
   }
   
   public onChangeStatus(task: Task) {
@@ -49,12 +52,20 @@ export class TaskitemComponent implements OnInit {
     this.lastUser = this.user;
   }
 
-  public taskInfo(authorId: string, lastuserId: string) {
+  public taskInfo(authorId: string, responsibleId: string, lastUserId: string) {
     this.userService.getUserInfo(authorId).subscribe((user: User) => {
       this.author = user;
+      if (user.id === lastUserId)
+      {
+        this.lastUser = user;
+      }
     });
-    this.userService.getUserInfo(lastuserId).subscribe((user: User) => {
-      this.lastUser = user;
+    this.userService.getUserInfo(responsibleId).subscribe((user: User) => {
+      this.responsible = user;
+      if (user.id === lastUserId)
+      {
+        this.lastUser = user;
+      }
     });
   }
 

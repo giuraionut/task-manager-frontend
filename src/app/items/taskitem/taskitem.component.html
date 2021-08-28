@@ -3,15 +3,19 @@
     hideToggle
     [ngClass]="{ disabled: !task.open }"
     *ngIf="task.authorId && task.lastUserId"
-    (click)="!task.private ? taskInfo(task.authorId, task.lastUserId) : ''"
+    (click)="!task.private ? taskInfo(task.authorId, task.responsibleId!, task.lastUserId) : ''"
   >
     <mat-expansion-panel-header>
       <mat-panel-title> {{ task.name }} </mat-panel-title>
       <mat-panel-description>
         {{ task.name }}
-        <img
+        <img *ngIf="!task.private"
           class="avatar"
-          src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+          [src]="avatar"
+        />
+        <img *ngIf="task.private"
+        class="avatar"
+        [src]="user.avatar"
         />
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -35,6 +39,9 @@
     </div>
     <div *ngIf="!task.private">
       <p class="task-details">Ultima accesare: {{ lastUser.username }}</p>
+    </div>
+    <div *ngIf="!task.private">
+      <p class="task-details">Responsabil: {{ responsible.username }}</p>
     </div>
     <mat-divider></mat-divider>
     <p class="task-controls">

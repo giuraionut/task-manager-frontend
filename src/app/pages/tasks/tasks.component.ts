@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ValueProvider } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/Task.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -37,12 +37,23 @@ export class TasksComponent implements OnInit {
     this.getTasks('public');
   }
 
+  public avatars: Map<string, string> = new Map<string, string>();
   public getTasks(type: string): void {
     this.tasks = [];
     this.taskType = type;
     if (type === 'public') {
-      this.taskService.getPublicTasks().subscribe((response) => {
-        this.tasks = response;
+      this.taskService.getPublicTasks().subscribe((tasks: Task[]) => {
+        this.tasks = tasks;
+
+        this.tasks.forEach((task: Task) => {
+          this.avatars.set(task.responsibleId!, '');
+        });
+
+        this.avatars.forEach((value: string, key: string) =>
+          this.userService.getUserInfo(key).subscribe((user: User) => {
+            this.avatars.set(key, user.avatar!);
+          })
+        );
       });
     } else if (type === 'private') {
       this.taskService.getPrivateTasks().subscribe((response) => {

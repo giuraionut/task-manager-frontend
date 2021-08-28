@@ -1,8 +1,16 @@
-::ng-deep.mat-dialog-container {
-    background-color: rgb(61, 61, 87) !important;
-    color: white !important;
-  }
-  
-  ::ng-deep.cropper {
-    outline: var(--cropper-outline-color, #000);
-  }
+.controls {
+  margin-top: 10px;
+}
+.background {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+image-cropper {
+  max-width: 700px;
+  max-height: 700px;
+}
+::ng-deep .overlay{
+  outline: rgb(0 0 0 / 0%) solid 100vw !important;
+}

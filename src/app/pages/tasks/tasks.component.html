@@ -18,6 +18,7 @@
       <div *ngFor="let task of tasks">
         <app-taskitem
           [task]="task"
+          [avatar]="this.avatars.get(task.responsibleId!)!"
           (onDeleteTask)="deleteTaskFunc(task)"
         ></app-taskitem>
       </div>
