@@ -1,5 +1,19 @@
 <div class="background">
-  <div class="container">
-    <app-memberitem [members]="members"></app-memberitem>
+  <div *ngIf="members && members.length === 1" class="container">
+    <mat-card class="instructions"
+      ><div>Echipa ta nu are nici un membru.</div>
+      <div>
+        Invita persoane in echipa prin intermediul panoului din partea stanga.
+      </div>
+      <img class="team-panel-img" [src]="team_panel_img" />
+    </mat-card>
+  </div>
+  <div fxLayout="row wrap" class="container">
+    <div *ngFor="let member of members">
+      <app-memberitem
+        [member]="member"
+        [management]="management"
+      ></app-memberitem>
+    </div>
   </div>
 </div>

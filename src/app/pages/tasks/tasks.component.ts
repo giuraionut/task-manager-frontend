@@ -17,6 +17,10 @@ export class TasksComponent implements OnInit {
 
   public tasks: Array<Task> = [];
   public hasTeam: Boolean = false;
+
+  public tasks_panel_img = "../../assets/misc_images/tasks_panel.png"
+
+
   ngOnInit(): void {
     console.log('Personal tasks initialized');
     this.userService.getProfile().subscribe((user: User) => {

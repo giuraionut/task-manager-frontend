@@ -1,6 +1,7 @@
-.header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 .member-controls {
   margin-top: 10px;
@@ -24,7 +25,10 @@
 
 .container {
   width: 300px;
-  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .selected {

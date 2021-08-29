@@ -41,11 +41,12 @@ export class NotificationSocketService {
           this.notificationService
             .saveNotification(notification)
             .subscribe((result: Notification) => {
+              this.notifications.push(result);
+              this.activeBell = true;
               this.userService
                 .getUserInfo(result.senderId!)
                 .subscribe((user: User) => {
                   result.senderAvatar = user.avatar;
-                  this.notifications.push(result);
                 });
             });
         }

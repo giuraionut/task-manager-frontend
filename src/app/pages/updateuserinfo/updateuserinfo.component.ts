@@ -16,6 +16,7 @@ export class UpdateuserinfoComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogType: 'uploadimg',
+        imgType: 'userAvatar',
         image: event,
       },
     });

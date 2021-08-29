@@ -1,6 +1,17 @@
 .content {
   margin-top: 64px;
 }
-.team{
-  max-height: 500px;
+.team {
+  height: 500px !important;
+  overflow: hidden;
+  border-left: 1px white solid;
+}
+.team-wrapper {
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.chat {
+  border-left: 1px white solid;
+  border-top: 1px white solid;
 }

@@ -59,4 +59,12 @@ export class TeamService {
       })
       .pipe(map((response: APIResponse) => {}));
   }
+
+
+  public uploadAvatar(image: FormData): Observable<void> {
+    return this.http
+      .put<APIResponse>(`${this.url}/avatar`, image, { withCredentials: true })
+      .pipe(map((response: APIResponse) => {}));
+  }
+
 }

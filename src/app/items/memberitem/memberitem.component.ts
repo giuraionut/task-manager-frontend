@@ -13,7 +13,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./memberitem.component.scss'],
 })
 export class MemberitemComponent implements OnInit {
-  @Input() members: Array<User> = [];
+  @Input() member: User = {};
   @Input() management: Boolean = false;
 
   constructor(
@@ -25,17 +25,15 @@ export class MemberitemComponent implements OnInit {
   ) {}
 
   public user: User = {};
-  
+ 
   ngOnInit(): void {
     this.userService.getProfile().subscribe((result: User) => {
       this.user = result;
     });
+    console.log(this.member);
   }
 
   public select(member: User) {
-    this.members.forEach((member) => {
-      member.selected = false;
-    });
     member.selected = true;
   }
 
@@ -64,8 +62,6 @@ export class MemberitemComponent implements OnInit {
       notification.type = 'kick';
 
       this.notificationSocketService.sendNotification(notification);
-
-      this.members = this.members.filter((member) => member.id != id);
     });
   }
 

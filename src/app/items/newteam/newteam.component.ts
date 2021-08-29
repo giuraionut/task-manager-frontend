@@ -3,6 +3,7 @@ import { Team } from '../../models/Team.model';
 import { TeamService } from '../../services/team.service';
 import { AuthService } from '../../services/auth.service';
 import { RefreshToken } from '../../models/RefreshToken.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-newteam',
   templateUrl: './newteam.component.html',
@@ -13,7 +14,8 @@ export class NewteamComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -26,6 +28,7 @@ export class NewteamComponent implements OnInit {
     this.teamService.createTeam(team).subscribe(() => {
       let refreshToken: RefreshToken = { refreshToken: this.data.refreshToken };
       this.authService.refreshToken(refreshToken).subscribe();
+      this.router.navigate(['/taskmanager/teammanagement']);
     });
   }
 }

@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { MainpageComponent } from './pages/mainpage/mainpage.component';
 import { AccsettingsComponent } from './pages/accsettings/accsettings.component';
-import { ChatComponent } from './chat/chat.component';
-import { TeammanagementComponent } from './teammanagement/teammanagement.component';
+import { ChatComponent } from './items/chat/chat.component';
+import { TeammanagementComponent } from './pages/teammanagement/teammanagement.component';
 const routes: Routes = [
   { path: 'taskmanager/home', component: HomeComponent },
   { path: 'taskmanager/mainpage', component: MainpageComponent },

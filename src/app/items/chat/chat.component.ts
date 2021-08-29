@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ChatMessage } from '../models/ChatMessage.model';
-import { User } from '../models/User.model';
-import { chatMembersService } from '../services/chatMembers.service';
-import { ChatSocketService } from '../services/chatWebSocket.service';
-import { UserService } from '../services/user.service';
+import { ChatMessage } from '../../models/ChatMessage.model';
+import { User } from '../../models/User.model';
+import { chatMembersService } from '../../services/chatMembers.service';
+import { ChatSocketService } from '../../services/chatWebSocket.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',

@@ -5,6 +5,7 @@ import {
   ImageCroppedEvent,
   ImageTransform,
 } from 'ngx-image-cropper';
+import { TeamService } from '../../services/team.service';
 import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-uploadimg',
@@ -14,7 +15,8 @@ import { UserService } from '../../services/user.service';
 export class UploadimgComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private userService: UserService
+    private userService: UserService,
+    private teamService: TeamService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,13 @@ export class UploadimgComponent implements OnInit {
 
     const fd = new FormData();
     fd.append('image', imageFile, 'image.jpg');
+    if(this.data['imgType'] === "userAvatar"){
     this.userService.uploadAvatar(fd).subscribe();
+    }
+    else if(this.data['imgType'] === "teamAvatar")
+    {
+      this.teamService.uploadAvatar(fd).subscribe();
+    }
   }
 
   public zoomIn() {

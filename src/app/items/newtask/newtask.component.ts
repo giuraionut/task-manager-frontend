@@ -27,7 +27,7 @@ export class NewtaskComponent implements OnInit {
     task.details = details;
     task.responsibleId = this.data.responsibleId;
     task.private = false;
-    task.teamId = this.data.teamId;
+    //task.teamId = this.data.teamId;
 
     this.taskService.newTask(task).subscribe((task: Task) => {
       let notification: Notification = {};

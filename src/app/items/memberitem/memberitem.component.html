@@ -1,39 +1,35 @@
-<div fxLayout="row wrap" fxLayoutGap="10px grid">
-  <div *ngIf="members && members.length === 1">
-    <mat-card class="card" >Echipa ta nu are nici un membru</mat-card>
-  </div>
-  <div *ngFor="let member of members" class="container">
-    <mat-card
-      *ngIf="member.id != user.id"
-      [ngClass]="member.selected ? 'selected' : ''"
-    >
-      <mat-card-header>
-        <div mat-card-avatar class="header-image"></div>
-        <mat-card-title>{{ member.username }} </mat-card-title>
-        <mat-card-subtitle>Coleg</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions>
-        <div *ngIf="member" class="member-controls">
-          <mat-icon
-            *ngIf="!management"
-            (click)="
-              getChat(member.id!); getPartnerInfo(member.id!); select(member)
-            "
-            >message</mat-icon
-          >
-          <mat-icon>person</mat-icon>
-          <mat-icon
-            *ngIf="management && member.id"
-            (click)="kickTeamMember(member.id)"
-            >remove_circle</mat-icon
-          >
-          <mat-icon
-            *ngIf="management && member.username && member.id"
-            (click)="assignTask(member.username, member.id)"
-            >add</mat-icon
-          >
-        </div>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
+<mat-card
+  *ngIf="member.id != user.id"
+  class="container"
+  [ngClass]="member.selected ? 'selected' : ''"
+>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img class="avatar" [src]="member.avatar" />
+    </div>
+    <mat-card-title>{{ member.username }} </mat-card-title>
+    <mat-card-subtitle>Coleg</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <div *ngIf="member" class="member-controls">
+      <mat-icon
+        *ngIf="!management"
+        (click)="
+          getChat(member.id!); getPartnerInfo(member.id!); select(member)
+        "
+        >message</mat-icon
+      >
+      <mat-icon>person</mat-icon>
+      <mat-icon
+        *ngIf="management && member.id"
+        (click)="kickTeamMember(member.id)"
+        >remove_circle</mat-icon
+      >
+      <mat-icon
+        *ngIf="management && member.username && member.id"
+        (click)="assignTask(member.username, member.id)"
+        >add</mat-icon
+      >
+    </div>
+  </mat-card-actions>
+</mat-card>

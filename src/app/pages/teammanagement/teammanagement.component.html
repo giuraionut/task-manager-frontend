@@ -6,7 +6,7 @@
         <div class="team-info">
           <img
             class="team-avatar"
-            src="https://www.sammobile.com/wp-content/uploads/2019/03/keyguard_default_wallpaper_silver.png"
+            [src]="team.avatar"
           />
           <div class="text"></div>
           <h2>{{ team.name }}</h2>
@@ -20,18 +20,15 @@
               Invita utilizatori in echipa ta
             </button>
             <button mat-raised-button color="primary" (click)="deleteTeam()">
-              Delete team
+              Sterge echipa
             </button>
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Incarca avatar</button>
+            <input #fileInput type="file" (change)="uploadAvatar($event)" style="display:none"/>
           </div>
         </div>
       </div>
       <div class="right" fxFlex="80">
-        <div class="members">
-          <app-memberitem
-            [members]="members"
-            [management]="true"
-          ></app-memberitem>
-        </div>
+        <app-team [management] = "true"></app-team>
       </div>
     </div>
   </div>

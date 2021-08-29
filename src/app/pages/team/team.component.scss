@@ -1,12 +1,16 @@
 .background {
   width: 100%;
   height: 94vh;
-  overflow-y: auto;
-  border-left: 1px white solid;
 }
 
 .container {
-  margin: 0 auto;
-  width: 300px;
-  margin-top: 25px;
+  max-width: fit-content;
+}
+
+.instructions {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

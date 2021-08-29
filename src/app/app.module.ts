@@ -33,15 +33,14 @@ import { UpdateuserinfoComponent } from './pages/updateuserinfo/updateuserinfo.c
 import {
   MatNativeDateModule,
   MatOptionModule,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS
 } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './items/chat/chat.component';
 import { TaskitemComponent } from './items/taskitem/taskitem.component';
 import { MemberitemComponent } from './items/memberitem/memberitem.component';
 import { TaskprogressbarComponent } from './items/taskprogressbar/taskprogressbar.component';
-import { TeammanagementComponent } from './teammanagement/teammanagement.component';
+import { TeammanagementComponent } from './pages/teammanagement/teammanagement.component';
 import { Interceptor } from './services/interceptor.service';
 import { NotificationitemComponent } from './items/notificationitem/notificationitem.component';
 import { MatDialogModule } from '@angular/material/dialog';

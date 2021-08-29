@@ -14,4 +14,6 @@ export interface User {
 
   //frontend specific
   selected?: Boolean;
+  defaultAvatar?: string;
 }
+

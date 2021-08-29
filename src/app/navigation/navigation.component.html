@@ -10,24 +10,25 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
+
+    <mat-icon [routerLink]="['../mainpage']">home</mat-icon>
+
     <!---------------------------------------------------------------------------------------------------->
-    <button
-      mat-icon-button
-      class="notification-icon"
+
+    <mat-icon
       [matMenuTriggerFor]="notifications"
+      *ngIf="notificationSocketService.notifications.length === 0"
+      >notifications</mat-icon
     >
-      <mat-icon *ngIf="notificationSocketService.notifications.length === 0"
-        >notifications</mat-icon
-      >
-      <mat-icon
-        *ngIf="notificationSocketService.notifications.length !== 0"
-        [ngClass]="
-          notificationSocketService.activeBell ? 'notif-active' : 'notif'
-        "
-        (click)="notificationSocketService.activeBell = false"
-        >notifications_active</mat-icon
-      >
-    </button>
+    <mat-icon [matMenuTriggerFor]="notifications"
+      *ngIf="notificationSocketService.notifications.length !== 0"
+      [ngClass]="
+        notificationSocketService.activeBell ? 'notif-active' : 'notif'
+      "
+      (click)="notificationSocketService.activeBell = false"
+      >notifications_active</mat-icon
+    >
+
     <mat-menu #notifications class="purple notifications-dropdown">
       <app-notificationitem
         (dismissedEvent)="notificationSocketService.activeBell = true"
@@ -35,13 +36,9 @@
       ></app-notificationitem>
     </mat-menu>
     <!---------------------------------------------------------------------------------------------------->
-    <button
-      mat-icon-button
-      class="profile-icon"
-      [matMenuTriggerFor]="profileMenu"
-    >
-      <mat-icon>person</mat-icon>
-    </button>
+
+    <mat-icon [matMenuTriggerFor]="profileMenu">person</mat-icon>
+
     <mat-menu #profileMenu class="purple">
       <button mat-menu-item (click)="accsettings()">Setari</button>
       <button mat-menu-item (click)="logout()">Logout</button>
