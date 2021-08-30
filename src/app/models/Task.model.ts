@@ -9,4 +9,5 @@ export interface Task {
   responsibleId?: string;
   assigned?: boolean;
   private?: boolean;
+  priority?: string;
 }

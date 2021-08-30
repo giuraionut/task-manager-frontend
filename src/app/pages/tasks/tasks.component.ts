@@ -1,9 +1,10 @@
-import { Component, OnInit, ValueProvider } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/Task.model';
-import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/User.model';
 import { UserService } from '../../services/user.service';
+import { DialogComponent } from '../../items/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -12,18 +13,19 @@ import { UserService } from '../../services/user.service';
 export class TasksComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    public dialog: MatDialog
   ) {}
 
   public tasks: Array<Task> = [];
   public hasTeam: Boolean = false;
-
-  public tasks_panel_img = "../../assets/misc_images/tasks_panel.png"
-
+  private user: User = {};
+  public tasks_panel_img = '../../assets/misc_images/tasks_panel.png';
 
   ngOnInit(): void {
     console.log('Personal tasks initialized');
     this.userService.getProfile().subscribe((user: User) => {
+      this.user = user;
       if (user.teamId != null) {
         this.hasTeam = true;
       }
@@ -73,25 +75,19 @@ export class TasksComponent implements OnInit {
   }
 
   public newTask() {
-    let task: Task = {};
-    task.name = 'New task';
-    task.details = 'New task content';
-    if (this.taskType === 'private') {
-      task.private = true;
-    } else if (this.taskType === 'public') {
-      task.private = false;
-    }
-    this.taskService.newTask(task).subscribe(
-      (response) => {
-        this.tasks.push(response);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogType: 'newtask',
+        username: this.user.username,
+        responsibleId: this.user.id,
+        private: true,
       },
-      (error: HttpErrorResponse) => {
-        console.log('Failed to create new task', error);
-      }
-    );
-  }
+    });
 
-  ngOnDestroy(): void {
-    console.log('Personal tasks destroyed');
+    dialogRef.afterClosed().subscribe((task: Task) => {
+      if (task !== 'false') {
+        this.tasks.push(task);
+      }
+    });
   }
 }

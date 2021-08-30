@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NotificationSocketService } from '../services/notificationWebSocket.service';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/User.model';
+import { RefreshToken } from '../models/RefreshToken.model';
 
 @Component({
   selector: 'app-navigation',
@@ -9,19 +12,25 @@ import { NotificationSocketService } from '../services/notificationWebSocket.ser
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  
   constructor(
-    private user: UserService,
+    private userService: UserService,
     private router: Router,
-    public notificationSocketService: NotificationSocketService
+    public notificationSocketService: NotificationSocketService,
+    private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
     this.notificationSocketService.openNotificationChannel();
+    this.userService.getProfile().subscribe((user: User) => {
+      if (user.refreshToken) {
+        let refreshToken: RefreshToken = { refreshToken: user.refreshToken };
+        this.authservice.refreshToken(refreshToken).subscribe();
+      }
+    });
   }
 
   public logout() {
-    this.user.signout();
+    this.userService.signout();
   }
 
   mobile: boolean = false;

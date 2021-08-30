@@ -4,20 +4,21 @@ import { Task } from '../../models/Task.model';
 import { User } from '../../models/User.model';
 import { UserService } from '../../services/user.service';
 import { TaskService } from '../../services/task.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-taskitem',
   templateUrl: './taskitem.component.html',
   styleUrls: ['./taskitem.component.scss'],
 })
 export class TaskitemComponent implements OnInit {
-  @Input() task!: Task;
-  @Input() avatar!: string;
+  @Input() task: Task = {};
+  @Input() avatar: string = "";
   @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter<Task>();
 
   constructor(
     private taskService: TaskService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   public author: User = {};
@@ -29,9 +30,8 @@ export class TaskitemComponent implements OnInit {
     this.userService.getProfile().subscribe((user: User) => {
       this.user = user;
     });
-  
   }
-  
+
   public onChangeStatus(task: Task) {
     task.open = !task.open;
     this.taskService.editTask(task).subscribe((response: APIResponse) => {
@@ -55,15 +55,13 @@ export class TaskitemComponent implements OnInit {
   public taskInfo(authorId: string, responsibleId: string, lastUserId: string) {
     this.userService.getUserInfo(authorId).subscribe((user: User) => {
       this.author = user;
-      if (user.id === lastUserId)
-      {
+      if (user.id === lastUserId) {
         this.lastUser = user;
       }
     });
     this.userService.getUserInfo(responsibleId).subscribe((user: User) => {
       this.responsible = user;
-      if (user.id === lastUserId)
-      {
+      if (user.id === lastUserId) {
         this.lastUser = user;
       }
     });
@@ -71,6 +69,7 @@ export class TaskitemComponent implements OnInit {
 
   public onDelete(task: Task) {
     this.onDeleteTask.emit(task);
+   this.snackBar.open(`Task ${task.name} sters cu success`, "Inchide",  {duration: 4000});
   }
 
   public toggleInput: boolean = false;

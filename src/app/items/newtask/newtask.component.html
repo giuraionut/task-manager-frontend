@@ -1,10 +1,18 @@
 <h1 mat-dialog-title>Creaza un nou task</h1>
-<div mat-dialog-content>
-  <p>Membru: {{ data.username }} {{ data.responsibleId }}</p>
+<div mat-dialog-content class="create-task-dialog">
+  <p>Pentru {{ data.username }}</p>
   <div class="task">
     <mat-form-field appearance="fill">
       <mat-label>Numele sarcinii</mat-label>
       <input #name matInput />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Prioritate</mat-label>
+      <mat-select #priority>
+        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+          {{priority.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Detalii despre sarcina</mat-label>
@@ -15,8 +23,7 @@
 <div mat-dialog-actions>
   <button
     mat-button
-    mat-dialog-close
-    (click)="createTask(name.value, details.value)"
+    (click)="createTask(name.value, details.value, priority.value)"
   >
     Ok
   </button>

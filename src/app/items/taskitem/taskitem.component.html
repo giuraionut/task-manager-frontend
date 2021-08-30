@@ -1,14 +1,15 @@
 <mat-accordion>
   <mat-expansion-panel
     hideToggle
+    class="task"
     [ngClass]="{ disabled: !task.open }"
-    *ngIf="task.authorId && task.lastUserId"
-    (click)="!task.private ? taskInfo(task.authorId, task.responsibleId!, task.lastUserId) : ''"
+    *ngIf="task.authorId && task.lastUserId && task.responsibleId"
+    (click)="!task.private ? taskInfo(task.authorId, task.responsibleId, task.lastUserId) : ''"
   >
     <mat-expansion-panel-header>
       <mat-panel-title> {{ task.name }} </mat-panel-title>
       <mat-panel-description>
-        {{ task.name }}
+        {{ task.priority }}
         <img *ngIf="!task.private"
           class="avatar"
           [src]="avatar"

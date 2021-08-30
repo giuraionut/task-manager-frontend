@@ -12,12 +12,15 @@
   height: auto;
   border-radius: 50%;
 }
+
 .mat-expansion-panel-header {
   min-height: 70px !important;
 }
+
 .mat-expansion-panel-header-title {
   margin: auto;
 }
+
 .task-controls {
   margin-top: 10px;
   margin-bottom: 0px;
@@ -25,9 +28,13 @@
   display: flex;
   justify-content: space-around;
 }
+
 .mat-divider {
   color: white;
   margin: 5px;
+}
+.task {
+  width: 350px;
 }
 .task-details {
   margin: 10px;
@@ -36,6 +43,7 @@
   width: 230px;
   overflow-wrap: break-word;
 }
+
 .task-textarea {
   margin: 10px;
   margin-bottom: 0px;
@@ -49,14 +57,17 @@
   outline: none;
   border-radius: 5px;
 }
+
 .mat-icon {
   cursor: pointer;
   transition: transform 0.1s ease;
 }
+
 .mat-icon:hover {
   transform: scale(1.5);
   transition: transform 0.1s ease;
 }
+
 .disabled {
   opacity: 0.3;
 }

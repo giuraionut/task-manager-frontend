@@ -7,9 +7,7 @@ import { TeamService } from '../../services/team.service';
   styleUrls: ['./team.component.scss'],
 })
 export class TeamComponent implements OnInit {
-  constructor(
-    public teamService: TeamService,
-  ) {}
+  constructor(public teamService: TeamService) {}
 
   @Input() management: Boolean = false;
 
@@ -20,5 +18,8 @@ export class TeamComponent implements OnInit {
     this.teamService.getTeamMembers().subscribe((members: User[]) => {
       this.members = members;
     });
+  }
+  deleteMemberFunc(member: User) {
+    this.members = this.members.filter((m) => m != member);
   }
 }
