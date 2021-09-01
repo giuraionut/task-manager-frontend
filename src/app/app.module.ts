@@ -13,7 +13,7 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { MainpageComponent } from './pages/mainpage/mainpage.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './items/navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,7 +33,7 @@ import { UpdateuserinfoComponent } from './pages/updateuserinfo/updateuserinfo.c
 import {
   MatNativeDateModule,
   MatOptionModule,
-  MAT_DATE_FORMATS
+  MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './items/chat/chat.component';
@@ -54,6 +54,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadimgComponent } from './items/uploadimg/uploadimg.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Guard } from './services/guard.service';
+import { CookieService } from 'ngx-cookie-service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -116,7 +118,7 @@ export const MY_FORMATS = {
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     AuthService,
@@ -124,6 +126,8 @@ export const MY_FORMATS = {
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     MatNativeDateModule,
+    Guard,
+    CookieService
   ],
   bootstrap: [AppComponent],
 })

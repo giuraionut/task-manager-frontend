@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from '../../models/User.model';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
@@ -15,11 +14,7 @@ interface Gender {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private user: UserService,
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  constructor(private user: UserService, private auth: AuthService) {}
 
   public hide = true;
   genders: Gender[] = [
@@ -27,15 +22,7 @@ export class HomeComponent implements OnInit {
     { value: 'female', viewValue: 'Feminin' },
   ];
 
-  ngOnInit(): void {
-    let loggedIn = localStorage.getItem('loggedIn');
-
-    if (loggedIn) {
-      if (JSON.parse(loggedIn)) {
-        this.router.navigate(['/taskmanager/mainpage']);
-      }
-    }
-  }
+  ngOnInit(): void {}
 
   public emailFormControl = new FormControl('', [
     Validators.required,

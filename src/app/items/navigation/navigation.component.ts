@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { NotificationSocketService } from '../services/notificationWebSocket.service';
-import { AuthService } from '../services/auth.service';
-import { User } from '../models/User.model';
-import { RefreshToken } from '../models/RefreshToken.model';
+import { UserService } from '../../services/user.service';
+import { NotificationSocketService } from '../../services/notificationWebSocket.service';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/User.model';
+import { RefreshToken } from '../../models/RefreshToken.model';
 
 @Component({
   selector: 'app-navigation',

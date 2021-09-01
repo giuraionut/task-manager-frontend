@@ -6,19 +6,23 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RefreshToken } from '../models/RefreshToken.model';
-
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private url = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   public login(user: User): void {
     this.http
       .post<APIResponse>(`${this.url}/login`, user, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {
-          localStorage.setItem('loggedIn', 'true');
+          this.cookieService.set('loggedIn', 'true', 1);
           this.router.navigate(['/taskmanager/mainpage']);
         })
       )
@@ -30,6 +34,10 @@ export class AuthService {
       .post<APIResponse>(`${this.url}/token/refresh`, refreshToken, {
         withCredentials: true,
       })
-      .pipe(map((result: APIResponse) => {}));
+      .pipe(
+        map((result: APIResponse) => {
+          this.cookieService.set('loggedIn', 'true', 1);
+        })
+      );
   }
 }
