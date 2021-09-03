@@ -22,4 +22,12 @@ export class TeamComponent implements OnInit {
   deleteMemberFunc(member: User) {
     this.members = this.members.filter((m) => m != member);
   }
+
+  selectMemberFunc(member: User) {
+    this.members.filter((m) => {
+      if (m.id !== member.id) {
+        m.selected = false;
+      }
+    });
+  }
 }

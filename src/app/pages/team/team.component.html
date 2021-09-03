@@ -10,10 +10,11 @@
   </div>
   <div fxLayout="row wrap" class="container">
     <div *ngFor="let member of members">
-      <app-memberitem
+      <app-memberitem class="member"
         [member]="member"
         [management]="management"
         (onDeleteMember)="deleteMemberFunc(member)"
+        (onSelectMember)="selectMemberFunc(member)"
       ></app-memberitem>
     </div>
   </div>

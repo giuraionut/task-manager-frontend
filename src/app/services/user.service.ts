@@ -5,12 +5,17 @@ import { APIResponse } from '../models/APIResponse.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private url = 'http://localhost:8080/user';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   public getProfile(): Observable<User> {
     return this.http
@@ -45,7 +50,7 @@ export class UserService {
       .post<APIResponse>(`${this.url}/signout`, null, { withCredentials: true })
       .pipe(
         map((response: APIResponse) => {
-          localStorage.removeItem('loggedIn');
+          this.cookieService.delete('loggedIn');
           this.router.navigate(['/taskmanager/home']);
           console.log(response.message);
         })

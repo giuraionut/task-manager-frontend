@@ -29,6 +29,7 @@ export class TeammanagementComponent implements OnInit {
   public members: Array<User> = [];
   public team: Team = {};
   public leader: User = {};
+  
   ngOnInit(): void {
     this.userService.getProfile().subscribe((response: User) => {
       this.leader = response;

@@ -3,6 +3,8 @@ import { User } from '../../models/User.model';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { FormControl, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 interface Gender {
   value: string;
   viewValue: string;
@@ -14,7 +16,7 @@ interface Gender {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private user: UserService, private auth: AuthService) {}
+  constructor(private user: UserService, private auth: AuthService, private cookieService: CookieService, private router: Router) {}
 
   public hide = true;
   genders: Gender[] = [
@@ -22,8 +24,14 @@ export class HomeComponent implements OnInit {
     { value: 'female', viewValue: 'Feminin' },
   ];
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    let loggedIn = this.cookieService.get('loggedIn');
+    if(loggedIn)
+    {
+      this.router.navigate(['taskmanager/mainpage']);
+    }
+  }
+  
   public emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,

@@ -80,5 +80,6 @@ export class NotificationitemComponent implements OnInit {
       });
       this.dismissNotif(notification);
     });
+ 
   }
 }

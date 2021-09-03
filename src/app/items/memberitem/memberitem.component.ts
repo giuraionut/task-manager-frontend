@@ -17,6 +17,7 @@ export class MemberitemComponent implements OnInit {
   @Input() member: User = {};
   @Input() management: Boolean = false;
   @Output() onDeleteMember: EventEmitter<User> = new EventEmitter<User>();
+  @Output() onSelectMember: EventEmitter<Boolean> = new EventEmitter<Boolean>();
   constructor(
     private teamService: TeamService,
     private userService: UserService,
@@ -37,6 +38,7 @@ export class MemberitemComponent implements OnInit {
 
   public select(member: User) {
     member.selected = true;
+    this.onSelectMember.emit(true);
   }
 
   public getChat(id: string) {
