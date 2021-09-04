@@ -42,30 +42,28 @@ export class UserService {
   public uploadAvatar(image: FormData): Observable<void> {
     return this.http
       .put<APIResponse>(`${this.url}/avatar`, image, { withCredentials: true })
-      .pipe(map((response: APIResponse) => {}));
+      .pipe(map(() => {}));
   }
 
   public signout(): void {
     this.http
       .post<APIResponse>(`${this.url}/signout`, null, { withCredentials: true })
       .pipe(
-        map((response: APIResponse) => {
+        map(() => {
           this.cookieService.delete('loggedIn');
           this.router.navigate(['/taskmanager/home']);
-          console.log(response.message);
         })
       )
       .subscribe();
   }
 
-  public register(user: User): void {
-    this.http
-      .post<APIResponse>(`${this.url}/new`, user)
+  public register(user: User): Observable<String> {
+    return this.http
+      .post<String>(`${this.url}/new`, user)
       .pipe(
-        map((response: APIResponse) => {
-          throw new Error(response.error);
+        map((response: String) => {
+          return response;
         })
-      )
-      .subscribe();
+      );
   }
 }

@@ -2,24 +2,45 @@
   <div class="form">
     <mat-form-field appearance="fill">
       <mat-label>Nume de utilizator</mat-label>
-      <input #username matInput placeholder="Ex. Ion" />
+      <input
+        #username
+        matInput
+        placeholder="Ex. Ion"
+        [formControl]="usernameControl"
+      />
+      <mat-error *ngIf="usernameControl.invalid">
+        {{getErrorMessage("username")}}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Parola</mat-label>
-      <input #password matInput placeholder="Alege o parola puternica" [type]="hide ? 'password' : 'text'"/>
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input
+        #password
+        matInput
+        placeholder="Alege o parola puternica"
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="passwordControl"
+      />
+      <mat-error *ngIf="passwordControl.invalid">
+        {{getErrorMessage("password")}}
+      </mat-error>
+      <mat-icon matSuffix (click)="hide = !hide">{{
+        hide ? "visibility_off" : "visibility"
+      }}</mat-icon>
     </mat-form-field>
 
     <div class="reg" *ngIf="reg">
       <mat-form-field appearance="fill">
         <mat-label>Adresa de Email</mat-label>
-        <input #email matInput placeholder="ion.doe@gmail.com" [formControl]="emailFormControl" />
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Trebuie sa introduci o adresa de Email valida
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Adresa de Email este <strong>necesara</strong>
+        <input
+          #email
+          matInput
+          placeholder="ion.doe@gmail.com"
+          [formControl]="emailControl"
+        />
+        <mat-error *ngIf="emailControl.invalid">
+          {{getErrorMessage("email")}}
         </mat-error>
       </mat-form-field>
 
