@@ -58,12 +58,17 @@ export class UserService {
   }
 
   public register(user: User): Observable<String> {
-    return this.http
-      .post<String>(`${this.url}/new`, user)
-      .pipe(
-        map((response: String) => {
-          return response;
-        })
-      );
+    return this.http.post<String>(`${this.url}/new`, user).pipe(
+      map((response: String) => {
+        return response;
+      })
+    );
   }
+
+  public updateUser(user: User): Observable<void> {
+    return this.http
+      .put<APIResponse>(`${this.url}/update`, user, { withCredentials: true })
+      .pipe(map((response: APIResponse) => {}));
+  }
+
 }

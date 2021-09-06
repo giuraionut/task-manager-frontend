@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../items/dialog/dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { RefreshToken } from '../../models/RefreshToken.model';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-teammanagement',
   templateUrl: './teammanagement.component.html',
@@ -23,23 +23,24 @@ export class TeammanagementComponent implements OnInit {
     public notificationSocketService: NotificationSocketService,
     private router: Router,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   public members: Array<User> = [];
   public team: Team = {};
-  public leader: User = {};
-  
+  public user: User = {};
+  public leader: Boolean = false;
   ngOnInit(): void {
     this.userService.getProfile().subscribe((response: User) => {
-      this.leader = response;
+      this.user = response;
 
-      if (this.leader.teamId != null) {
+      if (this.user.teamId != null) {
         this.teamService.getTeam().subscribe((response: Team) => {
           this.team = response;
-          
-          if (this.team.authorId != this.leader.id) {
-            this.router.navigate(['/taskmanager/mainpage']);
+
+          if (this.team.authorId === this.user.id) {
+            this.leader = true;
           }
         });
 
@@ -56,36 +57,44 @@ export class TeammanagementComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogType: 'invitation',
-        leader: this.leader,
+        leader: this.user,
         team: this.team,
       },
     });
   }
 
+  public leaveTeam() {
+    this.teamService.leaveTeam().subscribe(() => {
+      let refreshToken: RefreshToken = {refreshToken: this.user.refreshToken!};
+      this.authService.refreshToken(refreshToken).subscribe();
+      this.snackBar.open('Ai parasit echipa cu success', 'Close', {
+        duration: 4000,
+      });
+      this.router.navigate(['/taskmanager/mainpage']);
+    });
+  }
   public deleteTeam() {
     let membersId: string[] = [];
-    if(this.team.membersId)
-    {
+    if (this.team.membersId) {
       membersId = this.team.membersId;
     }
     this.teamService.deleteTeam().subscribe(() => {
-      membersId.forEach(memberId => {
+      membersId.forEach((memberId) => {
         let notification: Notification = {};
         notification.content = 'Ai fost exclus din echipa';
         notification.receiverId = memberId;
-        notification.senderId = this.leader.id;
-        notification.senderAvatar = this.leader.avatar;
+        notification.senderId = this.user.id;
+        notification.senderAvatar = this.user.avatar;
         const timestamp = new Date();
         timestamp.setHours(timestamp.getHours() + 3);
         notification.timestamp = timestamp;
-  
+
         notification.type = 'kick';
-  
+
         this.notificationSocketService.sendNotification(notification);
-  
       });
       let refreshToken: RefreshToken = {
-        refreshToken: this.leader.refreshToken!,
+        refreshToken: this.user.refreshToken!,
       };
       this.authService.refreshToken(refreshToken).subscribe();
       this.router.navigate(['/taskmanager/mainpage']);
@@ -101,6 +110,4 @@ export class TeammanagementComponent implements OnInit {
       },
     });
   }
-
-
 }

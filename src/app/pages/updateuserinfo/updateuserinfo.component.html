@@ -1,35 +1,85 @@
 <div class="background">
   <div class="form-wrapper">
-    <form class="example-form">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder="Ex. numeprenume" value="numeprenume" />
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Ex. A very strong password" />
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Confirm Password</mat-label>
-        <input matInput placeholder="Ex. A very strong password" />
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Email</mat-label>
+    <div class="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Nume de utilizator</mat-label>
         <input
+          #username
           matInput
-          placeholder="Ex. numeprenume@gmail.com"
-          value="numeprenume@gmail.com"
+          placeholder="Ex. Ion"
+          [formControl]="usernameControl"
+          [value]="user.username"
         />
+        <mat-error *ngIf="usernameControl.invalid">
+          {{ getErrorMessage("username") }}
+        </mat-error>
       </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Parola</mat-label>
+        <input
+          #password
+          matInput
+          placeholder="Alege o parola puternica"
+          [type]="hide ? 'password' : 'text'"
+          [formControl]="passwordControl"
+        />
+        <mat-error *ngIf="passwordControl.invalid">
+          {{ getErrorMessage("password") }}
+        </mat-error>
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Adresa de Email</mat-label>
+        <input
+          #email
+          matInput
+          placeholder="ion.doe@gmail.com"
+          [formControl]="emailControl"
+          [value]="user.email"
+        />
+        <mat-error *ngIf="emailControl.invalid">
+          {{ getErrorMessage("email") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>About me</mat-label>
-        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea
+          #aboutMe
+          matInput
+          placeholder="Ex. It makes me feel..."
+          [value]="user.aboutMe"
+        ></textarea>
       </mat-form-field>
-    </form>
+    </div>
     <mat-card class="buttons">
-      <button mat-raised-button color="primary" (click)="fileInput.click()">Incarca avatar</button>
-      <input #fileInput type="file" (change)="uploadAvatar($event)" style="display:none"/>
-      <button mat-raised-button color="primary">Submit</button>
+      <button mat-raised-button color="primary" (click)="fileInput.click()">
+        Incarca avatar
+      </button>
+      <input
+        #fileInput
+        type="file"
+        (change)="uploadAvatar($event)"
+        style="display: none"
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="
+          updateUser(
+            username.value,
+            password.value,
+            email.value,
+            aboutMe.value
+          )
+        "
+      >
+        Submit
+      </button>
     </mat-card>
   </div>
 </div>

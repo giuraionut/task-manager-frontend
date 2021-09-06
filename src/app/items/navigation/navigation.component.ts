@@ -5,6 +5,7 @@ import { NotificationSocketService } from '../../services/notificationWebSocket.
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/User.model';
 import { RefreshToken } from '../../models/RefreshToken.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -12,6 +13,7 @@ import { RefreshToken } from '../../models/RefreshToken.model';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  eventsSubject: Subject<void> = new Subject<void>();
   constructor(
     private userService: UserService,
     private router: Router,
@@ -28,7 +30,10 @@ export class NavigationComponent implements OnInit {
       }
     });
   }
-
+  public eventNext()
+  {
+    this.eventsSubject.next();
+  }
   public logout() {
     this.userService.signout();
   }

@@ -21,12 +21,12 @@
       >
       <mat-icon>person</mat-icon>
       <mat-icon
-        *ngIf="management && member"
+        *ngIf="management && member && isLeader()"
         (click)="kickTeamMember(member)"
         >remove_circle</mat-icon
       >
       <mat-icon
-        *ngIf="management && member"
+        *ngIf="management && member && isLeader()"
         (click)="assignTask(member)"
         >add</mat-icon
       >

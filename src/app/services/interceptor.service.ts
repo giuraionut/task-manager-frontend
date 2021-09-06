@@ -28,6 +28,13 @@ export class Interceptor implements HttpInterceptor {
               { duration: 4000 }
             );
           }
+          if (response.error === 'duplicate found') {
+            this.snackBar.open(
+              'Numele de utilizator sau adresea de email exista deja',
+              'Close',
+              { duration: 4000 }
+            );
+          }
           console.log(response.message);
           if (response.error !== 'none') {
             throw new Error(response.error);

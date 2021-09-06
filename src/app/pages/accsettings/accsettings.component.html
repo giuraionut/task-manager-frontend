@@ -4,10 +4,10 @@
 <div class="content">
   <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-sm="column" fxFlexFill>
     <div fxFlex="25" fxFlex.md="40" fxFlex.sm="50">
-      <app-profile></app-profile>
+      <app-profile [events]="eventsSubject.asObservable()"></app-profile>
     </div>
     <div fxFlex="75" fxFlex.md="60" fxFlex.sm="50" fxHide.xs fxHide.lt-sm>
-      <app-updateuserinfo></app-updateuserinfo>
+      <app-updateuserinfo (updateView)="updateProfile()"></app-updateuserinfo>
     </div>
   </div>
 </div>

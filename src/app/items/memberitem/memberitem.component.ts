@@ -8,6 +8,7 @@ import { chatMembersService } from '../../services/chatMembers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Team } from '../../models/Team.model';
 @Component({
   selector: 'app-memberitem',
   templateUrl: './memberitem.component.html',
@@ -28,12 +29,22 @@ export class MemberitemComponent implements OnInit {
   ) {}
 
   public user: User = {};
-
+  private team: Team = {};
   ngOnInit(): void {
     this.userService.getProfile().subscribe((result: User) => {
       this.user = result;
     });
-    console.log(this.member);
+    this.teamService.getTeam().subscribe((result: Team) => {
+      this.team = result;
+    });
+  }
+
+  public isLeader(): Boolean {
+    if(this.team.authorId === this.user.id)
+    {
+      return true;
+    }
+    return false;
   }
 
   public select(member: User) {

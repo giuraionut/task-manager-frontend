@@ -4,7 +4,7 @@
       type="button"
       aria-label="Toggle sidenav"
       mat-icon-button
-      (click)="drawer.toggle()"
+      (click)="drawer.toggle(); eventNext()"
     >
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
@@ -52,7 +52,7 @@
     autoFocus="false"
     [mode]="mobile ? 'over' : 'side'"
   >
-    <app-profile></app-profile>
+    <app-profile [events]="eventsSubject.asObservable()"></app-profile>
   </mat-sidenav>
   <mat-sidenav-content> </mat-sidenav-content>
 </mat-sidenav-container>

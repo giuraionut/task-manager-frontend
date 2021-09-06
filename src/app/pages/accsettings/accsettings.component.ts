@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-accsettings',
@@ -8,5 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AccsettingsComponent implements OnInit {
   constructor() {}
 
+  eventsSubject: Subject<void> = new Subject<void>();
   ngOnInit(): void {}
+
+  public updateProfile() {
+    this.eventsSubject.next();
+  }
 }

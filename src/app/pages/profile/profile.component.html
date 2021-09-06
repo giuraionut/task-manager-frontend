@@ -1,10 +1,7 @@
 <div class="background">
   <div class="container">
     <div class="avatar-container">
-      <img
-        class="avatar"
-        [src]="user.avatar"
-      />
+      <img class="avatar" [src]="user.avatar" />
     </div>
 
     <div class="profile-info">
@@ -22,12 +19,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class="profile-buttons">
-      <button
-        *ngIf="isTeamLeader"
-        mat-raised-button
-        color="primary"
-        (click)="teamManagement()"
-      >
+      <button mat-raised-button *ngIf="hasTeam" color="primary" (click)="teamManagement()">
         Echipa mea
       </button>
       <button

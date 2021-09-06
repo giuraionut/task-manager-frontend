@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../models/User.model';
 import { UserService } from '../../services/user.service';
@@ -6,12 +6,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../items/dialog/dialog.component';
 import { TeamService } from '../../services/team.service';
 import { Team } from '../../models/Team.model';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  @Input() events: Observable<void> = new Observable<void>();
   constructor(
     private userService: UserService,
     private router: Router,
@@ -24,6 +26,9 @@ export class ProfileComponent implements OnInit {
   public hasTeam: Boolean = false;
   ngOnInit(): void {
     this.getUserInfo();
+    this.events.subscribe(() => {
+      this.getUserInfo();
+    });
   }
 
   //------------------------------------------------------------------------------------------------

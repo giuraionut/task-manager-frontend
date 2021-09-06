@@ -10,20 +10,22 @@
           />
           <div class="text"></div>
           <h2>{{ team.name }}</h2>
-          <h2>{{ leader.username }}</h2>
+          <h2>{{ user.username }}</h2>
           <div class="controls">
-            <button
+            <button *ngIf="leader"
               mat-raised-button
               color="primary"
               (click)="openInvitationDialog()"
             >
               Invita utilizatori in echipa ta
             </button>
-            <button mat-raised-button color="primary" (click)="deleteTeam()">
+            <button mat-raised-button *ngIf="leader" color="primary" (click)="deleteTeam()">
               Sterge echipa
             </button>
-            <button mat-raised-button color="primary" (click)="fileInput.click()">Incarca avatar</button>
+            <button mat-raised-button *ngIf="leader" color="primary" (click)="fileInput.click()">Incarca avatar</button>
+            <button mat-raised-button *ngIf="!leader" color="primary" (click)="leaveTeam()">Paraseste echipa</button>
             <input #fileInput type="file" (change)="uploadAvatar($event)" style="display:none"/>
+
           </div>
         </div>
       </div>
