@@ -56,6 +56,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Guard } from './services/guard.service';
 import { CookieService } from 'ngx-cookie-service';
+import { MatBadgeModule } from '@angular/material/badge';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -119,6 +120,7 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     ImageCropperModule,
     MatSnackBarModule,
+    MatBadgeModule
   ],
   providers: [
     AuthService,
@@ -127,7 +129,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     MatNativeDateModule,
     Guard,
-    CookieService
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

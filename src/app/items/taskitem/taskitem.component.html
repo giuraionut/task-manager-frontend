@@ -2,9 +2,10 @@
   <mat-expansion-panel
     hideToggle
     class="task"
-    [ngClass]="{ disabled: !task.open }"
+    [ngClass]="{ disabled: !task.open, special: task.responsibleId === user.id }"
     *ngIf="task.authorId && task.lastUserId && task.responsibleId"
     (click)="!task.private ? taskInfo(task.authorId, task.responsibleId, task.lastUserId) : ''"
+    
   >
     <mat-expansion-panel-header>
       <mat-panel-title> {{ task.name }} </mat-panel-title>

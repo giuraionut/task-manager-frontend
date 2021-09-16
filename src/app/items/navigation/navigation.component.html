@@ -18,7 +18,7 @@
     <mat-icon
       [matMenuTriggerFor]="notifications"
       *ngIf="notificationSocketService.notifications.length === 0"
-      >notifications</mat-icon
+    >notifications</mat-icon
     >
     <mat-icon [matMenuTriggerFor]="notifications"
       *ngIf="notificationSocketService.notifications.length !== 0"
@@ -26,7 +26,7 @@
         notificationSocketService.activeBell ? 'notif-active' : 'notif'
       "
       (click)="notificationSocketService.activeBell = false"
-      >notifications_active</mat-icon
+      [matBadge]="notificationSocketService.notifications.length" matBadgeColor="warn" [matBadgeHidden]="notificationSocketService.hiddenBadge" (click)="notificationSocketService.toggleBadgeVisibility()">notifications_active</mat-icon
     >
 
     <mat-menu #notifications class="purple notifications-dropdown">

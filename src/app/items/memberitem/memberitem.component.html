@@ -1,5 +1,5 @@
 <mat-card
-  *ngIf="member.id != user.id"
+  *ngIf="member.id != user.id || management"
   class="container"
   [ngClass]="member.selected ? 'selected' : ''"
 >
@@ -8,7 +8,9 @@
       <img class="avatar" [src]="member.avatar" />
     </div>
     <mat-card-title>{{ member.username }} </mat-card-title>
-    <mat-card-subtitle>Coleg</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="member.id != user.id">Coleg</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="member.id === user.id">Eu</mat-card-subtitle>
+
   </mat-card-header>
   <mat-card-actions>
     <div *ngIf="member" class="member-controls">

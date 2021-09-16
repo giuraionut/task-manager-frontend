@@ -13,12 +13,18 @@ export class NotificationSocketService {
   webSocket!: WebSocket;
   public notifications: Notification[] = [];
   public activeBell = true;
-
+  public hiddenBadge: boolean = true;
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private notificationService: NotificationService
   ) {}
+
+  public toggleBadgeVisibility() {
+    if (this.notifications.length > 0) {
+      this.hiddenBadge = false;
+    }
+  }
 
   public openNotificationChannel() {
     this.webSocket = new WebSocket('ws://localhost:8080/notification');

@@ -22,6 +22,7 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.notificationSocketService.hiddenBadge=true;
     this.notificationSocketService.openNotificationChannel();
     this.userService.getProfile().subscribe((user: User) => {
       if (user.refreshToken) {
@@ -30,8 +31,7 @@ export class NavigationComponent implements OnInit {
       }
     });
   }
-  public eventNext()
-  {
+  public eventNext() {
     this.eventsSubject.next();
   }
   public logout() {
@@ -39,6 +39,8 @@ export class NavigationComponent implements OnInit {
   }
 
   mobile: boolean = false;
+ 
+
 
   public accsettings() {
     this.router.navigate(['/taskmanager/settings']);
