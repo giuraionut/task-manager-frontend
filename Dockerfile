@@ -1,2 +1,3 @@
 FROM nginx:alpine
-COPY  --from=node /dist/task-manager /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY /dist/task-manager /usr/share/nginx/html
