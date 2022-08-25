@@ -9,7 +9,7 @@
 ## Task manager application made with Spring, MongoDB and Angular.
 ### This application can be used by individuals or by teams.
 
-![](https://github.com/giuraionut/task-manager/blob/main/presentation%20(1).gif)
+![](https://github.com/giuraionut/images/blob/main/task-manager-presentation-gif.gif)
 
 
 # Installation
